@@ -1,0 +1,33 @@
+{
+  "name": "githubhomepage",
+  "version": "1.0.0",
+  "description": "github-pages home page",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.13.2",
+    "gulp-babel": "^6.1.2",
+    "gulp-changed": "^1.3.1",
+    "gulp-livereload": "^3.8.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "www.github.com"
+  },
+  "keywords": [
+    "home",
+    "page",
+    "github",
+    "pages"
+  ],
+  "author": "Saumitra Bose",
+  "license": "ISC"
+}
