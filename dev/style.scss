@@ -1,4 +1,54 @@
-h1{
-  color:red;
-  font-size: 3em;
+html, body{
+  margin :0;
+  overflow: hidden;
+  padding: 0;
+}
+
+@mixin center{
+  left:50%;
+  position:absolute;
+  top:50%;
+  transform: translate(-50%, -50%);
+}
+
+.view{
+  height: 100%;
+  left:50%;
+  opacity:0;
+  position: absolute;
+  top:50%;
+  transform: translate(-500%, 0%);
+  transition: opacity 0.3s ease;
+  width: 100%;
+  & .text{
+    @include center; 
+    font-size: 5em;   
+    font-family: 'Open Sans', sans-serif;
+    text-align : center;
+  }
+}
+
+div.activeview{
+  @include center;
+  opacity:1;
+}
+
+ul.navs{
+  margin-top: 50px;
+  margin-right: 20px;
+  list-style-type: none;
+  position: fixed;
+  right: 0;
+
+  & li.navelem{
+    cursor: pointer;
+    margin-bottom: 5px;
+    transition: color 0.2s linear;
+    &:hover{
+      color:blue !important;
+    }
+  }
+  & li.activenav{
+    color:blue;
+  }
 }

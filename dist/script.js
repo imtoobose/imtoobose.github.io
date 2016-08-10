@@ -1,1 +1,1 @@
-"use strict";var a=function(n){return n*n};console.log(a(2));
+"use strict";for(var handleNavClick=function(e){for(var s=0;s<navs.length;s++)navs[s].style.color="black";e.target.style.color="blue";var a=+e.target.id.slice(-1);for(s=0;s<views.length;s++)views[s].classList.remove("activeview");views[a-1].classList.add("activeview")},views=document.getElementsByClassName("view"),navs=document.getElementsByClassName("navelem"),i=0;i<navs.length;i++)navs[i].addEventListener("click",handleNavClick);

@@ -5,12 +5,19 @@ var
   autoprefixer = require('gulp-autoprefixer'),
   changed      = require('gulp-changed'),
   babel        = require('gulp-babel'),
-  livereload   = require('gulp-livereload');
+  pug          = require('gulp-pug'),
+  browserSync  = require('browser-sync').create();
 
-livereload({
-  port: '8080',
-  start: true
-  });
+
+gulp.task('serve', ['sass'], function() {
+    browserSync.init({
+        server: "./"
+    });
+    gulp.watch("dev/*.scss", ['sass']);
+    gulp.watch("dev/*.js", ['uglify']);
+    gulp.watch("dev/*.pug", ['pug']);
+    gulp.watch("*.html").on('change', browserSync.reload);
+});
 
 gulp.task('sass', function(){
   gulp.src('dev/*.scss')
@@ -18,7 +25,7 @@ gulp.task('sass', function(){
   .pipe(sass())
   .pipe(autoprefixer())
   .pipe(gulp.dest('dist'))
-  .pipe(livereload());
+  .pipe(browserSync.stream());
 });
 
 gulp.task('uglify', function(){
@@ -27,13 +34,20 @@ gulp.task('uglify', function(){
   .pipe(babel({
     presets: ['es2015']
     })).on('end', ()=> console.log('done'))
+  .on('error', (e)=> console.log(e))
   .pipe(uglify())
-  .pipe(gulp.dest('dist'))
-  .pipe(livereload());
+  .pipe(gulp.dest('dist')).on('end', ()=> console.log('minified and compiled js'))
+  .pipe(browserSync.stream());
 });
 
-gulp.task('default', function(){
-  livereload.listen();
-  gulp.watch('dev/*.scss', ['sass']);
-  gulp.watch('dev/*.js', ['uglify']);
+gulp.task('pug', function(){
+  gulp.src('dev/*.pug')
+  .pipe(changed('dist'))
+  .pipe(pug({
+    "pretty": true
+    }))
+  .on('error', (e)=> console.log(e))
+  .pipe(gulp.dest('./'))
 });
+
+gulp.task('default', ['serve']);
