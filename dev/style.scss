@@ -91,11 +91,11 @@ ul.navs{
   background-color: #FF686B;
 }
 
-@media (max-width: 760px){
+@mixin mobileview{
   ul.navs{
     display:none;
   }
-  
+
   body, html{
     overflow: auto;
   }
@@ -135,4 +135,8 @@ ul.navs{
     font-size: 4vw !important;
     text-align: center;
   }
+}
+
+@media (max-width: 760px){
+  @include mobileview;
 }
