@@ -22,7 +22,7 @@ gulp.task('serve', ['sass'], function() {
 gulp.task('sass', function(){
   gulp.src('dev/*.scss')
   .pipe(changed('dist'))
-  .pipe(sass())
+  .pipe(sass()).on('error', sass.logError)
   .pipe(autoprefixer())
   .pipe(gulp.dest('dist'))
   .pipe(browserSync.stream());
