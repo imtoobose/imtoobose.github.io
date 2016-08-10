@@ -1,8 +1,8 @@
 var handleNavClick = (e) => {
   for(var i = 0; i< navs.length; i++) {
-    navs[i].style.color="black";
+    navs[i].classList.remove('activenav');
   }
-  e.target.style.color="blue";
+  e.target.classList.add('activenav');
   
   var targ= +e.target.id.slice(-1);
   for (i=0; i<views.length; i++){ 

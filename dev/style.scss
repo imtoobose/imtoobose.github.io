@@ -1,7 +1,13 @@
+$font: 'Lato', sans-serif;
+
 html, body{
   margin :0;
   overflow: hidden;
   padding: 0;
+  font-family: $font;
+  -webkit-font-smoothing:antialiased;
+  font-smooth: always;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 @mixin center{
@@ -20,12 +26,6 @@ html, body{
   transform: translate(-500%, 0%);
   transition: opacity 0.3s ease;
   width: 100%;
-  & .text{
-    @include center; 
-    font-size: 5em;   
-    font-family: 'Open Sans', sans-serif;
-    text-align : center;
-  }
 }
 
 div.activeview{
@@ -33,22 +33,45 @@ div.activeview{
   opacity:1;
 }
 
+div.homeview{
+  color: #FFFFFF;
+  background-color: #84DCC6;
+  & div.hometext{
+    @include center; 
+    & div.titlename{
+      font-weight: 900;
+      font-size: 5vw;   
+      text-align : center;
+    }
+    & div.titleprops{
+      font-weight:600;
+      font-size: 1.5vw;
+    }
+  }
+}
+
 ul.navs{
   margin-top: 50px;
   margin-right: 20px;
   list-style-type: none;
   position: fixed;
-  right: 0;
+  right: 5px;
+  font-size: 1.2em;
+  font-family: $font;
+  font-weight: 700;
+  color: fade-out(#000, 0.8);
 
+  text-align: right;
   & li.navelem{
     cursor: pointer;
     margin-bottom: 5px;
     transition: color 0.2s linear;
+    
     &:hover{
-      color:blue !important;
+      color:white !important;
     }
   }
   & li.activenav{
-    color:blue;
+    color:white;
   }
 }
