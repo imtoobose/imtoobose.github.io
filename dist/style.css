@@ -7,6 +7,7 @@ html, body {
   overflow: hidden;
   padding: 0; }
 
+/*---all views----*/
 .view {
   height: 100%;
   left: 50%;
@@ -25,6 +26,7 @@ div.activeview {
           transform: translate(-50%, -50%);
   opacity: 1; }
 
+/*----views-----*/
 div.homeview {
   color: #FFFFFF;
   background-color: #84DCC6; }
@@ -42,6 +44,26 @@ div.homeview {
       font-weight: 600;
       font-size: 2vw; }
 
+div.toolsview ul.tooliconbox {
+  clear: both;
+  list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  font-size: 4em;
+  max-width: 85%; }
+  div.toolsview ul.tooliconbox li {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 1;
+            flex: 1 0 1;
+    color: white;
+    margin: 10px; }
+    div.toolsview ul.tooliconbox li:hover {
+      color: white; }
+
+/*----navbar---*/
 ul.navs {
   color: rgba(0, 0, 0, 0.2);
   font-size: 1.2em;
@@ -50,7 +72,8 @@ ul.navs {
   margin-top: 50px;
   margin-right: 20px;
   list-style-type: none;
-  position: fixed;
+  position: absolute;
+  float: right;
   right: 5px;
   text-align: right; }
   ul.navs li.navelem {
@@ -63,6 +86,7 @@ ul.navs {
   ul.navs li.activenav {
     color: white; }
 
+/*----background colors----*/
 #view1 {
   background-color: #84DCC6; }
 
@@ -75,70 +99,34 @@ ul.navs {
 #view4 {
   background-color: #FF686B; }
 
+/*----mobile layout----*/
 @media (max-width: 760px) {
   ul.navs {
     display: none; }
   body, html {
-    overflow: auto; }
+    overflow: auto;
+    height: 100%; }
+  p, ul.tooliconbox {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto; }
   div.view {
-    position: absolute;
+    display: block;
+    position: relative;
+    height: auto;
+    min-height: 100%;
     -webkit-transform: none;
             transform: none;
     opacity: 1;
     top: 0;
     left: 0; }
-  #view2 {
-    top: 100%; }
-  #view3 {
-    top: 200%; }
-  #view4 {
-    top: 300%; }
   div.activeview {
     top: 0;
     left: 0;
     -webkit-transform: none;
             transform: none; }
-  div.hometext {
-    top: 0;
-    left: 0;
-    position: relative !important;
-    margin: 0 auto; }
-    div.hometext div.titlename {
-      font-size: 10vw !important; }
-  div.titleprops {
-    font-size: 4vw !important;
-    text-align: center; } }
-
-@media (max-device-width: 760px) {
-  ul.navs {
-    display: none; }
-  body, html {
-    overflow: auto; }
-  div.view {
-    position: absolute;
-    -webkit-transform: none;
-            transform: none;
-    opacity: 1;
-    top: 0;
-    left: 0; }
-  #view2 {
-    top: 100%; }
-  #view3 {
-    top: 200%; }
-  #view4 {
-    top: 300%; }
-  div.activeview {
-    top: 0;
-    left: 0;
-    -webkit-transform: none;
-            transform: none; }
-  div.hometext {
-    top: 0;
-    left: 0;
-    position: relative !important;
-    margin: 0 auto; }
-    div.hometext div.titlename {
-      font-size: 10vw !important; }
+  div.hometext div.titlename {
+    font-size: 10vw !important; }
   div.titleprops {
     font-size: 4vw !important;
     text-align: center; } }

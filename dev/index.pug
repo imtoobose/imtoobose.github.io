@@ -7,6 +7,7 @@ html
     meta(name="description", content="Saumitra Bose: Portfolio")
     meta(name="author" content="Saumitra Bose")
     meta(name="viewport", content="width=device-width, initial-scale=1")
+    link(rel="stylesheet", type="text/css", href="dist/assets/devicons/css/devicons.min.css")
     link(rel="stylesheet", type="text/css", href="dist/style.css" )
     link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900")
   body
@@ -18,13 +19,24 @@ html
           Developer. Designer. Programmer.
     div.view.workview(id="view2").
       My work
-    div.view.visionview(id="view3").
-      How I do it
+    div.view.toolsview(id="view3")
+      div.toolbox 
+        div.quote
+          p.textinquote.
+            Man is a tool-using animal... without tools he is nothing, with tools he is all. 
+            -Thomas Carlyle
+        -var arr= ["javascript", "python" ,"react", "sass" , "html5" , "css3", "bootstrap", "nodejs", "git", "gulp", "sublime"];
+        ul.tooliconbox
+          each icon in arr
+            li.icon
+              i.toolicons.devicons(class="devicons-"+icon, id=icon, style="font-size: 2em")
+
     div.view.contactview(id="view4").
-      Contact me here
+      Everything starts somewhere, although many physicists disagree. 
+      -Terry Pratchett 
     ul.navs
       li.navelem.activenav(id="nav1") Home
       li.navelem(id="nav2") Portfolio
-      li.navelem(id="nav3") Vision
+      li.navelem(id="nav3") Tools
       li.navelem(id="nav4") Contact 
   script(src="dist/script.js")

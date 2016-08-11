@@ -4,10 +4,17 @@ html, body{
   -webkit-font-smoothing:antialiased;
   font-smooth: always;
   -moz-osx-font-smoothing:grayscale;
-
   margin :0;
   overflow: hidden;
   padding: 0;
+}
+
+@mixin wordwrap{
+  white-space: pre-wrap;        
+  white-space: -moz-pre-wrap;     
+  white-space: -pre-wrap;         
+  white-space: -o-pre-wrap;       
+  word-wrap: break-word;      
 }
 
 @mixin center{
@@ -17,6 +24,7 @@ html, body{
   transform: translate(-50%, -50%);
 }
 
+/*---all views----*/
 .view{
   height: 100%;
   left:50%;
@@ -32,6 +40,7 @@ div.activeview{
   opacity:1;
 }
 
+/*----views-----*/
 div.homeview{
   color: #FFFFFF;
   background-color: #84DCC6;
@@ -49,6 +58,26 @@ div.homeview{
   }
 }
 
+div.toolsview{
+  ul.tooliconbox{
+    clear: both;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 4em;
+    max-width: 85%;
+    & li{
+      flex: 1 0 1;
+      color:white;
+      margin: 10px;
+      &:hover{
+        color:white;
+      }
+    }
+  }
+}
+
+/*----navbar---*/
 ul.navs{
   color: fade-out(#000, 0.8);
   font-size: 1.2em;
@@ -57,7 +86,8 @@ ul.navs{
   margin-top: 50px;
   margin-right: 20px;
   list-style-type: none;
-  position: fixed;
+  position: absolute;
+  float:right;
   right: 5px;
   text-align: right;
 
@@ -75,22 +105,17 @@ ul.navs{
   }
 }
 
-#view1{
-  background-color: #84DCC6;
+/*----background colors----*/
+$colors: #84DCC6, #A5FFD6, #FFA69E, #FF686B;
+$j: 1;
+@each $lscolor in $colors{
+  #view#{$j}{
+    background-color: $lscolor;
+    $j: $j+1;
+  }
 }
 
-#view2{
-  background-color: #A5FFD6;
-}
-
-#view3{
-  background-color: #FFA69E;
-}
-
-#view4{
-  background-color: #FF686B;
-}
-
+/*----mobile layout----*/
 @mixin mobileview{
   ul.navs{
     display:none;
@@ -98,22 +123,24 @@ ul.navs{
 
   body, html{
     overflow: auto;
+    height:100%;
   }
+
+  p, ul.tooliconbox{
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto;
+  }
+
   div.view{
-    position: absolute;
+    display:block;
+    position: relative;
+    height: auto;
+    min-height: 100%;
     transform: none;
     opacity: 1;
     top: 0;
     left: 0;
-  }
-  #view2{
-    top: 100%;
-  }
-  #view3{
-    top: 200%;
-  }
-  #view4{
-    top:300%;
   }
 
   div.activeview{
@@ -123,14 +150,11 @@ ul.navs{
   }
 
   div.hometext{
-    top: 0;
-    left: 0;
-    position: relative !important;
-    margin: 0 auto;
     & div.titlename{
       font-size: 10vw !important;
     }
   }
+
   div.titleprops{
     font-size: 4vw !important;
     text-align: center;
