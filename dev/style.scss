@@ -1,11 +1,16 @@
 $font: 'Lato', sans-serif;
+$color1: #84DCC6;
+$color2: #A5FFD6;
+$color3: #FFA69E;
+$color4: #FF686B;
+$white : #FFFFFF;
+
 html, body{
   font-family: $font;
   -webkit-font-smoothing:antialiased;
   font-smooth: always;
   -moz-osx-font-smoothing:grayscale;
   margin :0;
-  overflow: hidden;
   padding: 0;
 }
 
@@ -26,24 +31,21 @@ html, body{
 
 /*---all views----*/
 .view{
-  height: 100%;
-  left:50%;
+  min-height: 100%;
   opacity:0;
   position: absolute;
-  top:50%;
-  transform: translate(-500%, 0%);
   width: 100%;
+  transform: translateX(-500%);
 }
 
 div.activeview{
-  @include center;
   opacity:1;
+  transform: translate(0,0);
 }
 
 /*----views-----*/
 div.homeview{
   color: #FFFFFF;
-  background-color: #84DCC6;
   & div.hometext{
     @include center; 
     & div.titlename{
@@ -60,18 +62,37 @@ div.homeview{
 
 div.toolsview{
   ul.tooliconbox{
-    clear: both;
+    margin: 0;
+    padding: 0;
+    position:relative;
+    margin-top:5%;
+    margin-left: 5%;
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
-    font-size: 4em;
     max-width: 85%;
-    & li{
+    & li.icon{
       flex: 1 0 1;
-      color:white;
-      margin: 10px;
+      color:hsla(hue($color3), 50, 50,0.6);
+      margin: 2%;
+      font-size: 4em;
+      transition: all 0.25s ease;
+      & i.devicons{
+        cursor: pointer;
+      }
+      & div.icondescription{
+        opacity: 0;
+        font-size: 0.3em;
+        text-align: center;
+        font-weight: 700;
+        transition: opacity 0.25 ease;
+      }
       &:hover{
-        color:white;
+        color: $white;
+        transform: scale(1.2);
+        & div.icondescription{
+          opacity: 1;
+        }
       }
     }
   }
@@ -87,10 +108,8 @@ ul.navs{
   margin-right: 20px;
   list-style-type: none;
   position: absolute;
-  float:right;
   right: 5px;
   text-align: right;
-
   & li.navelem{
     cursor: pointer;
     margin-bottom: 5px;
@@ -152,6 +171,14 @@ $j: 1;
   div.hometext{
     & div.titlename{
       font-size: 10vw !important;
+    }
+  }
+
+  div.toolsview{
+    & ul.tooliconbox{
+      position: relative;
+      margin: 0 auto;
+      max-width: 100%;
     }
   }
 
