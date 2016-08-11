@@ -38,6 +38,9 @@ div.homeview {
       font-size: 2vw; }
 
 div.toolsview ul.tooliconbox {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin: 0;
   padding: 0;
   position: relative;
@@ -56,14 +59,14 @@ div.toolsview ul.tooliconbox {
             flex: 1 0 1;
     color: rgba(191, 74, 64, 0.6);
     margin: 2%;
-    font-size: 4em;
     -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease; }
     div.toolsview ul.tooliconbox li.icon i.devicons {
+      font-size: 6em;
       cursor: pointer; }
     div.toolsview ul.tooliconbox li.icon div.icondescription {
       opacity: 0;
-      font-size: 0.3em;
+      font-size: 1em;
       text-align: center;
       font-weight: 700;
       -webkit-transition: opacity 0.25 ease;
@@ -117,7 +120,7 @@ ul.navs {
   body, html {
     overflow: auto;
     height: 100%; }
-  p, ul.tooliconbox {
+  p {
     padding: 0 !important;
     margin: 0 !important;
     height: auto; }
@@ -139,8 +142,11 @@ ul.navs {
   div.hometext div.titlename {
     font-size: 10vw !important; }
   div.toolsview ul.tooliconbox {
-    position: relative;
+    padding: 0;
+    margin: 0;
     margin: 0 auto;
+    margin-bottom: 5%;
+    position: relative;
     max-width: 100%; }
   div.titleprops {
     font-size: 4vw !important;
