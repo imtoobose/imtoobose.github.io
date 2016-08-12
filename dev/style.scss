@@ -1,4 +1,5 @@
 $font: 'Lato', sans-serif;
+$cursive: 'Open Sans', cursive;
 $color1: #84DCC6;
 $color2: #A5FFD6;
 $color3: #FFA69E;
@@ -66,8 +67,9 @@ div.toolsview{
     margin: 0;
     padding: 0;
     position:relative;
-    margin-top:5%;
-    margin-left: 5%;
+    padding-top:5%;
+    padding-left: 5%;
+    //padding-bottom: 5%;
     list-style-type: none;
     display: flex;
     flex-wrap: wrap;
@@ -179,9 +181,8 @@ $j: 1;
     & ul.tooliconbox{
       padding:  0;
       margin: 0;
-      margin: 0 auto;
-      margin-bottom: 5%;
-      position: relative;
+      padding-top: 5%;
+      padding-bottom: 5%;
       max-width: 100%;
     }
   }

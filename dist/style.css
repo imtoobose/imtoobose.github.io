@@ -44,8 +44,8 @@ div.toolsview ul.tooliconbox {
   margin: 0;
   padding: 0;
   position: relative;
-  margin-top: 5%;
-  margin-left: 5%;
+  padding-top: 5%;
+  padding-left: 5%;
   list-style-type: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -144,9 +144,8 @@ ul.navs {
   div.toolsview ul.tooliconbox {
     padding: 0;
     margin: 0;
-    margin: 0 auto;
-    margin-bottom: 5%;
-    position: relative;
+    padding-top: 5%;
+    padding-bottom: 5%;
     max-width: 100%; }
   div.titleprops {
     font-size: 4vw !important;

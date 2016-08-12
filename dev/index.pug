@@ -9,7 +9,7 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1")
     link(rel="stylesheet", type="text/css", href="dist/assets/devicons/css/devicons.min.css")
     link(rel="stylesheet", type="text/css", href="dist/style.css" )
-    link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900")
+    link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Open+Sans:300, 700i")
   body
     div.view.activeview.homeview(id="view1")
       div.hometext
@@ -21,10 +21,6 @@ html
       My work
     div.view.toolsview(id="view3")
       div.toolbox 
-        div.quote
-          p.textinquote.
-            Man is a tool-using animal... without tools he is nothing, with tools he is all. 
-            -Thomas Carlyle
         -var arr= ["javascript", "python" ,"react", "sass" , "html5" , "css3", "bootstrap", "nodejs", "git", "gulp", "sublime", "windows"];
         ul.tooliconbox
           each icon in arr
@@ -33,7 +29,7 @@ html
               - var name;
               - if(icon=="nodejs") name= "NodeJS";
               - else if(icon=="css3") name= "CSS3";
-              - else if(icon=="sublime") name="Sublime Text 3";
+              - else if(icon=="sublime") name="Sublime 3";
               - else if(icon=="html5") name="HTML5";
               - else{
               -   name = icon.split('');
@@ -41,12 +37,10 @@ html
               -   name= name.join('');
               -  }
               div.icondescription(id="desc-"+icon)= name
-
     div.view.contactview(id="view4")
-      div.quote
-        p.textinquote.
-          Everything starts somewhere, although many physicists disagree. 
-          -Terry Pratchett 
+      div.contactbuttons
+      div.emailform
+         
     ul.navs
       li.navelem.activenav(id="nav1") Home
       li.navelem(id="nav2") Portfolio
