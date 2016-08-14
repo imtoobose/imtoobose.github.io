@@ -5,8 +5,8 @@ html
       Saumitra Bose
     meta(charset="UTF-8")
     meta(name="description", content="Saumitra Bose: Portfolio")
-    meta(name="author" content="Saumitra Bose")
-    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="author"     content="Saumitra Bose")
+    meta(name="viewport",  content="width=device-width, initial-scale=1")
     link(rel="stylesheet", type="text/css", href="dist/assets/devicons/css/devicons.min.css")
     link(rel="stylesheet", type="text/css", href="dist/style.css" )
     link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Open+Sans:300, 700i")
@@ -17,9 +17,18 @@ html
           Saumitra Bose
         div.titleprops.
           Developer. Designer. Programmer.
-    div.view.workview(id="view2").
-      My work
+    div.view.workview(id="view2")
+      div.titletext.viewtitile WORK
+      ul.workcontainer
+        - var works= 1;
+        while works <= 5
+          li.workbox(class="workbox-"+works, id= "workbox"+works)
+            image.workimg(src="#", class="workimg-"+works, id="workimg"+works)
+            div.workdescription(class= "workdes-"+works ,id="workdes"+works)
+          - works+=1;
     div.view.toolsview(id="view3")
+      div.titletext.tooltitle.
+        TOOLS
       div.toolbox 
         -var arr= ["javascript", "python" ,"react", "sass" , "html5" , "css3", "bootstrap", "nodejs", "git", "gulp", "sublime", "windows"];
         ul.tooliconbox
@@ -38,9 +47,10 @@ html
               -  }
               div.icondescription(id="desc-"+icon)= name
     div.view.contactview(id="view4")
+      div.titletext.contacttitle.
+        CONTACT
       div.contactbuttons
       div.emailform
-         
     ul.navs
       li.navelem.activenav(id="nav1") Home
       li.navelem(id="nav2") Portfolio

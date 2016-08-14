@@ -31,7 +31,7 @@ var moveDown=()=>{
     views[active-1].classList.add('activeview');
   }
 } 
-var handleKeyUp = (e) =>{
+var handleKeyDown = (e) =>{
   //up arrow
   if(e.keyCode==38){
     moveUp();
@@ -45,7 +45,10 @@ var handleKeyUp = (e) =>{
 var 
   views = document.getElementsByClassName('view'),
   navs  = document.getElementsByClassName('navelem');
-window.addEventListener('keyup', handleKeyUp);
-for(var i =0; i<navs.length; i++){
-  navs[i].addEventListener('click', handleNavClick);
+if(navs){
+  window.addEventListener('keydown', handleKeyDown);
+  for(var i =0; i<navs.length; i++){
+    navs[i].addEventListener('click', handleNavClick);
+  }
 }
+document.getElementById("workbox1").classList.add('activeworks');

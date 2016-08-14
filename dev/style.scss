@@ -1,8 +1,23 @@
+//Index:
+//1. General Styles
+//2. View General
+//3. View Specific
+//   1. Home View
+//   2. Tools View
+//4. Navbar
+//5. Background Colors
+//6. Mobile Layout
+
+//All properties are in alphabetical order
+
+//----General Styles----
+
 $font: 'Lato', sans-serif;
 $cursive: 'Open Sans', cursive;
 $color1: #84DCC6;
-$color2: #A5FFD6;
-$color3: #FFA69E;
+$color3: #000022;
+$color3: #3D405B;
+$color2: #FFA69E;
 $color4: #FF686B;
 $white : #FFFFFF;
 
@@ -15,7 +30,7 @@ html, body{
   padding: 0;
 }
 
-@mixin wordwrap{
+@mixin wordwrap {
   white-space: pre-wrap;        
   white-space: -moz-pre-wrap;     
   white-space: -pre-wrap;         
@@ -30,8 +45,8 @@ html, body{
   transform: translate(-50%, -50%);
 }
 
-/*---all views----*/
-.view{
+//---View General----
+.view {
   min-height: 100%;
   opacity:0;
   position: absolute;
@@ -39,61 +54,86 @@ html, body{
   transform: translateX(-500%);
 }
 
-div.activeview{
+.activeview{
   opacity:1;
   transform: translate(0,0);
 }
 
-/*----views-----*/
-div.homeview{
+.titletext{
+  display:none;
+}
+//----View Specific-----
+
+//----Home View----
+.homeview{
   color: #FFFFFF;
-  & div.hometext{
+  & .hometext{
     @include center; 
-    & div.titlename{
+    & .titlename{
       font-weight: 900;
       font-size: 7vw;   
       text-align : center;
     }
-    & div.titleprops{
+    & .titleprops{
       font-weight:600;
       font-size: 2vw;
     }
   }
 }
 
-div.toolsview{
-  ul.tooliconbox{
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    position:relative;
-    padding-top:5%;
-    padding-left: 5%;
-    //padding-bottom: 5%;
-    list-style-type: none;
+//----Works View----
+
+.workview{
+  & .workall{
+    position: relative;
+    margin: 0 auto;
+    background: white;
+    height: auto;
+    width: auto;
+    display: block;
+    & .workcontainer{
+      display: inline-block;
+      height: 80%;
+      width: 70%;
+      background: white;
+      @include center;
+    }
+  }
+}
+
+//----Tools View----
+.toolsview{
+  .tooliconbox{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
     max-width: 85%;
-    & li.icon{
+    padding: 0;
+    padding-top:10%;
+    padding-left: 5%;
+    position:relative;
+    & .icon{
+      color:hsla(hue($color3), 60, 70,0.8);
       flex: 1 0 1;
-      color:hsla(hue($color3), 50, 50,0.6);
       margin: 2%;
       transition: all 0.25s ease;
-      & i.devicons{
-        font-size: 6em;
+      & .devicons{
         cursor: pointer;
+        font-size: 6em;
       }
-      & div.icondescription{
-        opacity: 0;
+      & .icondescription{
         font-size: 1em;
-        text-align: center;
         font-weight: 700;
+        opacity: 0;
+        text-align: center;
         transition: opacity 0.25 ease;
       }
       &:hover{
         color: $white;
-        transform: scale(1.2);
-        & div.icondescription{
+        transform: scale(1.1);
+        & .icondescription{
           opacity: 1;
         }
       }
@@ -101,8 +141,8 @@ div.toolsview{
   }
 }
 
-/*----navbar---*/
-ul.navs{
+//----Navbar---
+.navs{
   color: fade-out(#000, 0.8);
   font-size: 1.2em;
   font-family: $font;
@@ -113,22 +153,21 @@ ul.navs{
   position: absolute;
   right: 5px;
   text-align: right;
-  & li.navelem{
+  & .navelem{
     cursor: pointer;
     margin-bottom: 5px;
     transition: color 0.2s linear;
-
     &:hover{
       color:white;
     }
   }
-  & li.activenav{
+  & .activenav{
     color:white;
   }
 }
 
-/*----background colors----*/
-$colors: #84DCC6, #A5FFD6, #FFA69E, #FF686B;
+//----Background Colors----
+$colors: $color1, $color2, $color3, $color4;
 $j: 1;
 @each $lscolor in $colors{
   #view#{$j}{
@@ -137,24 +176,20 @@ $j: 1;
   }
 }
 
-/*----mobile layout----*/
+//----Mobile Layout----
 @mixin mobileview{
-  ul.navs{
-    display:none;
-  }
-
-  body, html{
+  body, html {
     overflow: auto;
     height:100%;
   }
 
-  p{
+  p {
     padding: 0 !important;
     margin: 0 !important;
     height: auto;
   }
 
-  div.view{
+  .view {
     display:block;
     position: relative;
     height: auto;
@@ -165,20 +200,46 @@ $j: 1;
     left: 0;
   }
 
-  div.activeview{
+  .activeview {
     top: 0;
     left: 0;
     transform:none;
   }
 
-  div.hometext{
-    & div.titlename{
-      font-size: 10vw !important;
+  .titletext{
+    display:block;
+    padding-top: 35px;
+    text-align: center;
+    font-weight: 900;
+    font-family: $font;
+    font-size: 1.4em;
+    color: $white;
+    position: relative;
+    &:before{
+      content:'';
+      display: block;
+      height: 4px;
+      width:30px;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom: solid $white 4px;
     }
   }
 
-  div.toolsview{
-    & ul.tooliconbox{
+  .hometext{
+    & .titlename{
+      font-size: 7vw !important;
+    }
+    & .titleprops{
+      font-size: 3vw !important;
+      text-align: center;
+    }
+  }
+
+  .toolsview{
+    & .tooliconbox{
       padding:  0;
       margin: 0;
       padding-top: 5%;
@@ -187,9 +248,8 @@ $j: 1;
     }
   }
 
-  div.titleprops{
-    font-size: 4vw !important;
-    text-align: center;
+  .navs{
+    display:none;
   }
 }
 

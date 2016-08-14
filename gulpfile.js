@@ -6,6 +6,7 @@ var
   changed      = require('gulp-changed'),
   babel        = require('gulp-babel'),
   pug          = require('gulp-pug'),
+  uglifycss    = require('gulp-clean-css'),
   browserSync  = require('browser-sync').create();
 
 
@@ -24,6 +25,7 @@ gulp.task('sass', function(){
   .pipe(changed('dist'))
   .pipe(sass()).on('error', sass.logError)
   .pipe(autoprefixer())
+  .pipe(uglifycss())
   .pipe(gulp.dest('dist'))
   .pipe(browserSync.stream());
 });
