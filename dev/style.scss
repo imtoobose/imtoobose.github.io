@@ -13,7 +13,7 @@
 //----General Styles----
 
 $font: 'Lato', sans-serif;
-$cursive: 'Open Sans', cursive;
+$serif: 'Robot-Slab', serif;
 $color1: #84DCC6;
 $color3: #000022;
 $color3: #3D405B;
@@ -84,20 +84,14 @@ html, body{
 //----Works View----
 
 .workview{
-  & .workall{
-    position: relative;
-    margin: 0 auto;
+  & .workcontainer{
+    display: inline-block;
+    list-style-type: none;
+    height: 80%;
+    width: 70%;
     background: white;
-    height: auto;
-    width: auto;
-    display: block;
-    & .workcontainer{
-      display: inline-block;
-      height: 80%;
-      width: 70%;
-      background: white;
-      @include center;
-    }
+    @include center;
+    margin: 0;
   }
 }
 
@@ -136,6 +130,43 @@ html, body{
         & .icondescription{
           opacity: 1;
         }
+      }
+    }
+  }
+}
+
+.emailname{
+  @include center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  //padding-top: 20px;
+  & .text{
+    color: $white;
+    font-size: 3vw;
+    font-weight: 700;
+    flex: 1 0 100%;
+  }
+  & .socialtext{
+    padding-top: 20px;
+    position: relative;
+    height: auto;
+    width: 33%;
+    display: flex;
+    flex: 1 0 auto;
+    & .intext{
+      color: $white;
+      text-decoration: none;
+      display: inline-block;
+      position: absolute;
+      left: 50%;
+      font-size: 1.6vw;
+      transform: translate(-50%);
+      &:link{
+        color: $white;
+      }
+      &:active{
+        color:$white;
       }
     }
   }
@@ -245,6 +276,19 @@ $j: 1;
       padding-top: 5%;
       padding-bottom: 5%;
       max-width: 100%;
+    }
+  }
+
+  .contactview{
+    & .emailname{
+      & .text{
+        font-size: 6vw;
+      }
+      & .socialtext{
+        & .intext{
+          font-size: 3vw;
+        }
+      }
     }
   }
 

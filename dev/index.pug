@@ -9,7 +9,7 @@ html
     meta(name="viewport",  content="width=device-width, initial-scale=1")
     link(rel="stylesheet", type="text/css", href="dist/assets/devicons/css/devicons.min.css")
     link(rel="stylesheet", type="text/css", href="dist/style.css" )
-    link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Open+Sans:300, 700i")
+    link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Roboto+Slab:400,700")
   body
     div.view.activeview.homeview(id="view1")
       div.hometext
@@ -49,8 +49,16 @@ html
     div.view.contactview(id="view4")
       div.titletext.contacttitle.
         CONTACT
-      div.contactbuttons
-      div.emailform
+      div.emailname 
+        div.text.
+          imtoobose@gmail.com
+        - var social= 0;
+        - var socialnames= [["GITHUB", "https://github.com/imtoobose"], ["TWITTER", "https://twitter.com/saumitrabose"], ["LINKEDIN", "#"]];
+        while social < 3
+          div.socialtext 
+            a.intext(href= socialnames[social][1]) #{socialnames[social][0]}
+          - social +=1;
+
     ul.navs
       li.navelem.activenav(id="nav1") Home
       li.navelem(id="nav2") Portfolio
