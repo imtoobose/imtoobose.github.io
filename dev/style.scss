@@ -3,10 +3,13 @@
 //2. View General
 //3. View Specific
 //   1. Home View
-//   2. Tools View
+//   2. Works View
+//   3. Tools View
+//   4. Contact View
 //4. Navbar
 //5. Background Colors
 //6. Mobile Layout
+//7. Animations
 
 //All properties are in alphabetical order
 
@@ -82,7 +85,6 @@ html, body{
 }
 
 //----Works View----
-
 .workview{
   & .workcontainer{
     display: inline-block;
@@ -135,38 +137,59 @@ html, body{
   }
 }
 
+//Gulp description used to be too close
+//to the icon
+#icon-gulp{
+    & + .icondescription{
+      margin-top:4px !important;
+    }
+}
+
+//----Contact View----
 .emailname{
   @include center;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  //padding-top: 20px;
+  justify-content: center;
   & .text{
     color: $white;
+    flex: 1 0 100%;
     font-size: 3vw;
     font-weight: 700;
-    flex: 1 0 100%;
   }
   & .socialtext{
-    padding-top: 20px;
-    position: relative;
-    height: auto;
-    width: 33%;
     display: flex;
     flex: 1 0 auto;
+    height: auto;
+    padding-top: 20px;
+    position: relative;
+    width: 33%;
     & .intext{
       color: $white;
-      text-decoration: none;
       display: inline-block;
-      position: absolute;
-      left: 50%;
       font-size: 1.6vw;
+      left: 50%;
+      position: absolute;
+      text-decoration: none;
       transform: translate(-50%);
       &:link{
         color: $white;
       }
       &:active{
         color:$white;
+      }
+      &:hover{
+        &:before{
+          animation: strike 0.5s ease 1;
+          background: fade-out($white, 0.3);
+          content: '';
+          display: block;
+          height: 2px;
+          left: -5%;
+          position: absolute;
+          top: 55%;
+          width:110%;
+        }
       }
     }
   }
@@ -299,4 +322,15 @@ $j: 1;
 
 @media (max-width: 760px){
   @include mobileview;
+}
+
+
+//----Animations----
+@keyframes strike{
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 110%;
+  }
 }

@@ -53,10 +53,10 @@ html
         div.text.
           imtoobose@gmail.com
         - var social= 0;
-        - var socialnames= [["GITHUB", "https://github.com/imtoobose"], ["TWITTER", "https://twitter.com/saumitrabose"], ["LINKEDIN", "#"]];
+        - var socialnames= [["GITHUB", "https://github.com/imtoobose"], ["TWITTER", "https://twitter.com/saumitrabose"], ["LINKEDIN", "https://in.linkedin.com/in/saumitrabose"]];
         while social < 3
           div.socialtext 
-            a.intext(href= socialnames[social][1]) #{socialnames[social][0]}
+            a.intext(href= socialnames[social][1], target="_blank") #{socialnames[social][0]}
           - social +=1;
 
     ul.navs
