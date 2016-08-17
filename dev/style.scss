@@ -237,20 +237,19 @@ $j: 1;
 //----Mobile Layout----
 @mixin mobileview{
   body, html {
-    overflow: auto;
+    //overflow: auto;
     height:100%;
   }
-
-  p {
-    padding: 0 !important;
-    margin: 0 !important;
-    height: auto;
+  html{
+    overflow-y: scroll;
+    overflow-x: hidden; 
+    -webkit-overflow-scrolling: touch;
   }
-
+  
   .view {
     display:block;
     position: relative;
-    height: auto;
+    //height: auto;
     min-height: 100%;
     transform: none;
     opacity: 1;

@@ -50,23 +50,7 @@ var handleKeyDown = (e) =>{
   }
 }
 
-var 
-  views = document.getElementsByClassName('view'),
-  navs  = document.getElementsByClassName('navelem');
-if(navs){
-  window.addEventListener('keydown', handleKeyDown);
-  for(var i =0; i<navs.length; i++){
-    navs[i].addEventListener('click', handleNavClick);
-  }
-}
-
-document.getElementById("workbox1").classList.add('activeworks');
-
-//----Canvas Stuff----//
-if(!window.mobilecheck()){
-  document.getElementById('view1').innerHTML+=  '<canvas class="homecanvas" id="homecanvas"></canvas>';
-  var c= new can();
-  var animateHome= () =>{
+var animateHome= () =>{
     window.onresize= c.changewidth();
     c.createBubble();
     function animateBubbles(){
@@ -80,6 +64,26 @@ if(!window.mobilecheck()){
     }
     window.requestAnimationFrame(animateBubbles);
   }
+
+var 
+  views = document.getElementsByClassName('view'),
+  navs  = document.getElementsByClassName('navelem');
+
+//----If not on mobile do this----//
+if(!window.mobilecheck()){
+  if(navs){
+    window.addEventListener('keydown', handleKeyDown);
+    for(var i =0; i<navs.length; i++){
+      navs[i].addEventListener('click', handleNavClick);
+    }
+  }
+  document.getElementById("workbox1").classList.add('activeworks');
+  var home = document.getElementById('view1');
+  var htmlcanvas= document.createElement('canvas');
+  htmlcanvas.classList.add('homecanvas');
+  htmlcanvas.id = "homecanvas";
+  home.insertBefore(htmlcanvas, home.childNodes[0]);
+  var c= new can();
   c.changewidth();
   animateHome();
 }
