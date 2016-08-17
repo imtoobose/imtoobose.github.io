@@ -63,7 +63,7 @@ if(navs){
 document.getElementById("workbox1").classList.add('activeworks');
 
 //----Canvas Stuff----//
-if(!mobilecheck()){
+if(!window.mobilecheck()){
   var c= new can();
   var animateHome= () =>{
     window.onresize= c.changewidth();
