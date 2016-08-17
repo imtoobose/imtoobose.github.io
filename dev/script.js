@@ -64,6 +64,7 @@ document.getElementById("workbox1").classList.add('activeworks');
 
 //----Canvas Stuff----//
 if(!window.mobilecheck()){
+  document.getElementById('view1').innerHTML+=  '<canvas class="homecanvas" id="homecanvas"></canvas>';
   var c= new can();
   var animateHome= () =>{
     window.onresize= c.changewidth();
