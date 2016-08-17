@@ -7,6 +7,9 @@ var
   babel        = require('gulp-babel'),
   pug          = require('gulp-pug'),
   uglifycss    = require('gulp-clean-css'),
+  source       = require('vinyl-source-stream'),
+  streamify    = require('gulp-streamify'),
+  browserify   = require('browserify'),
   browserSync  = require('browser-sync').create();
 
 
@@ -31,13 +34,14 @@ gulp.task('sass', function(){
 });
 
 gulp.task('uglify', function(){
-  gulp.src('dev/*.js')
-  .pipe(changed('dist'))
-  .pipe(babel({
+  browserify('./dev/script.js')
+  .bundle()
+  .pipe(source('bundle.js'))
+  .pipe(streamify(babel({
     presets: ['es2015']
-    })).on('end', ()=> console.log('done'))
+    }))).on('end', ()=> console.log('done'))
   .on('error', (e)=> console.log(e))
-  .pipe(uglify())
+  .pipe(streamify(uglify()))
   .pipe(gulp.dest('dist')).on('end', ()=> console.log('minified and compiled js'))
   .pipe(browserSync.stream());
 });

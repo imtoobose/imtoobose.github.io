@@ -48,6 +48,10 @@ html, body{
   transform: translate(-50%, -50%);
 }
 
+canvas{
+  //background: red;
+  @include center;
+}
 //---View General----
 .view {
   min-height: 100%;

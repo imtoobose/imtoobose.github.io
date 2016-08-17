@@ -1,3 +1,5 @@
+var can = require('./js/canvashome.js');
+
 var active= 1;
 
 var handleNavClick = (e) => {
@@ -51,4 +53,24 @@ if(navs){
     navs[i].addEventListener('click', handleNavClick);
   }
 }
+
 document.getElementById("workbox1").classList.add('activeworks');
+
+//----Canvas Stuff----//
+var c= new can();
+var animateHome= () =>{
+  window.onresize= c.changewidth();
+  c.createBubble();
+  function animateBubbles(){
+    window.onresize= c.changewidth();
+    c.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    var bubbles = c.bubbles;
+    for(var i =0; i<c.bubbles.length; i++){
+      bubbles[i].draw();
+    }
+    window.requestAnimationFrame(animateBubbles);
+  }
+  window.requestAnimationFrame(animateBubbles);
+}
+c.changewidth();
+animateHome();
