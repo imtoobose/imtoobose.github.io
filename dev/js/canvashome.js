@@ -5,8 +5,8 @@ function randomInt(min,max)
 
 var options = {
   "nodes": 100,
-  "linedistance": 70*70,
-  "color": "rgba(55, 162, 135, 0.15)",
+  "linedistance": 60*60,
+  "color": "rgba(55, 162, 135, 0.4)",
   "nodecolor": "rgba(90, 194, 168, 1)"
 }
 
@@ -33,8 +33,8 @@ class Bubble{
     }
     else sign = -1;
 
-    this.vx = sign*(0.1 - (Math.random()*0.5));
-    this.vy = sign*(0.1 - (Math.random()*0.5));
+    this.vx = sign*(0.05- (Math.random()*0.3));
+    this.vy = sign*(0.05- (Math.random()*0.3));
     this.r= radius;
     this.ctx= ctx;
     this.draw();

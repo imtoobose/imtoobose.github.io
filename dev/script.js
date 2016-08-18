@@ -10,6 +10,7 @@ window.mobilecheck = function() {
 //ANIM     : Holds return type of window.requestAnimationFrame
 //PAUSED   : Control start and stop of animation with a boolean
 //LINEDIST : The minimum distance between two nodes to form a connection
+//MOUSEPOS : X and Y coordinates of the mouse at any time
 var can      = require('./js/canvashome'),
     lineDraw = require('./js/canvashome').lineDraw,
     COBJ     = undefined,
@@ -17,8 +18,15 @@ var can      = require('./js/canvashome'),
     ACTIVE   = 1,
     PAUSED   = 1, 
     LINEDIST = 70*70,
+    MOUSEPOS = {"x": -1, "y": -1},
     views    = document.getElementsByClassName('view'),
     navs     = document.getElementsByClassName('navelem');
+
+var mousePos = (e) => {
+  MOUSEPOS.x= e.clientX;
+  MOUSEPOS.y= e.clientY;
+  //console.log(MOUSEPOS, MOUSEPOS.x, MOUSEPOS.y);
+}
 
 //----Utility function to find the distance between
 //two points on a Cartesian grid
@@ -93,6 +101,7 @@ var initCanvas = () =>{
 var animateGraph = () =>{
   COBJ.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   var bubbles = COBJ.bubbles;
+
   //Draw the connecting nodes
   for(var i =0; i<COBJ.bubbles.length; i++){
     bubbles[i].draw();
@@ -101,9 +110,11 @@ var animateGraph = () =>{
   //Find if two nodes are close enough to form a connection
   //If so draw a line between them
   for(i=0; i<COBJ.bubbles.length-1; i++){
-    for(var j=i+1; j<COBJ.bubbles.length; j++){
-      if(distancebetween(bubbles[i], bubbles[j])<LINEDIST){
-        lineDraw(bubbles[i], bubbles[j], COBJ);
+    if(distancebetween(MOUSEPOS, bubbles[i])<200*200){
+      for(var j=i+1; j<COBJ.bubbles.length; j++){
+        if(distancebetween(bubbles[i], bubbles[j])<LINEDIST){
+          lineDraw(bubbles[i], bubbles[j], COBJ);
+        }
       }
     }
   }
@@ -122,6 +133,8 @@ if(!window.mobilecheck()){
     }
   }
   
+  window.addEventListener('mousemove', mousePos);
+
   document.getElementById("workbox1").classList.add('activeworks');
 
   /*---CANVAS STUFF----*/
