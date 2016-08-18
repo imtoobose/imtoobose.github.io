@@ -35,7 +35,7 @@ gulp.task('sass', function(){
 
 gulp.task('uglify', function(){
   browserify('./dev/script.js')
-  .bundle()
+  .bundle().on('error', (e)=> console.log(e.toString()))
   .pipe(source('bundle.js'))
   .pipe(streamify(babel({
     presets: ['es2015']
