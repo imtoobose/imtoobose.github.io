@@ -68,7 +68,13 @@ class CanvasClass{
   constructor(){
     this.canvashome = document.getElementById('homecanvas');
     this.ctx        = this.canvashome.getContext('2d');
-      this.bubbles    = [];
+    this.bubbles    = [];
+    window.onresize = ()=> {
+      this.changewidth();
+      this.createBubble();
+    }
+    this.changewidth();
+    this.createBubble();
   }
   changewidth (){
     this.canvashome.width= window.innerWidth;
