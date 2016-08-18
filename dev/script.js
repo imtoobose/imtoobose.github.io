@@ -50,21 +50,6 @@ var handleKeyDown = (e) =>{
   }
 }
 
-var animateHome= () =>{
-    window.onresize= c.changewidth();
-    c.createBubble();
-    function animateBubbles(){
-      window.onresize= c.changewidth();
-      c.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      var bubbles = c.bubbles;
-      for(var i =0; i<c.bubbles.length; i++){
-        bubbles[i].draw();
-      }
-      window.requestAnimationFrame(animateBubbles);
-    }
-    window.requestAnimationFrame(animateBubbles);
-  }
-
 var 
   views = document.getElementsByClassName('view'),
   navs  = document.getElementsByClassName('navelem');
@@ -83,7 +68,6 @@ if(!window.mobilecheck()){
   htmlcanvas.classList.add('homecanvas');
   htmlcanvas.id = "homecanvas";
   home.insertBefore(htmlcanvas, home.childNodes[0]);
-  var c= new can();
-  c.changewidth();
-  animateHome();
+  //initiate canvas
+  can();
 }
