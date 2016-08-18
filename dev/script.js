@@ -6,7 +6,8 @@ window.mobilecheck = function() {
 
 var can = require('./js/canvashome.js');
 
-var active= 1;
+var active= 1,
+created = 0;
 
 var handleNavClick = (e) => {
   for(var i = 0; i< navs.length; i++) {
@@ -28,6 +29,13 @@ var moveUp=()=>{
     navs[active-1].classList.add('activenav');
     views[active-1].classList.add('activeview');
   }
+  if(active==1){
+    if(created===0)
+    {
+      createCanvas();
+      created= 1;
+    }
+  }
 }
 
 var moveDown=()=>{
@@ -37,6 +45,10 @@ var moveDown=()=>{
     active+=1;
     navs[active-1].classList.add('activenav');
     views[active-1].classList.add('activeview');
+    if(created==1) {
+      destroyCanvas();
+      created= 0;
+    }
   }
 } 
 var handleKeyDown = (e) =>{
@@ -54,6 +66,19 @@ var
   views = document.getElementsByClassName('view'),
   navs  = document.getElementsByClassName('navelem');
 
+var createCanvas = () =>{
+  var home = document.getElementById('view1');
+  var htmlcanvas= document.createElement('canvas');
+  htmlcanvas.classList.add('homecanvas');
+  htmlcanvas.id = "homecanvas";
+  home.insertBefore(htmlcanvas, home.childNodes[0]);
+  can();
+}
+var destroyCanvas= () =>{
+  var home = document.getElementById('view1');
+  home.removeChild(document.getElementById('homecanvas'));
+}
+
 //----If not on mobile do this----//
 if(!window.mobilecheck()){
   if(navs){
@@ -63,11 +88,13 @@ if(!window.mobilecheck()){
     }
   }
   document.getElementById("workbox1").classList.add('activeworks');
-  var home = document.getElementById('view1');
+  /*var home = document.getElementById('view1');
   var htmlcanvas= document.createElement('canvas');
   htmlcanvas.classList.add('homecanvas');
   htmlcanvas.id = "homecanvas";
   home.insertBefore(htmlcanvas, home.childNodes[0]);
   //initiate canvas
-  can();
+  can();*/
+  createCanvas();
+  created= 1;
 }
