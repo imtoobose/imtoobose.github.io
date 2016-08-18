@@ -66,16 +66,9 @@ class Bubble{
 
 class CanvasClass{
   constructor(){
-    this.exists     = 1;
     this.canvashome = document.getElementById('homecanvas');
     this.ctx        = this.canvashome.getContext('2d');
-    if(this.canvashome){
       this.bubbles    = [];
-      this.changewidth();
-    }
-    else{
-      this.exists = 0;
-    }
   }
   changewidth (){
     this.canvashome.width= window.innerWidth;
@@ -95,32 +88,5 @@ class CanvasClass{
   }
 }
 
-var animateHome= () =>{
-  var distancebetween = (p1, p2) =>  (p1.x-p2.x)*(p1.x-p2.x)+ (p1.y-p2.y)*(p1.y-p2.y);
-  var c= new CanvasClass();
-  window.onresize= ()=> {
-    c.changewidth();
-    c.createBubble();
-  }
-  c.createBubble();
-  c.changewidth();
-
-  return function animateBubbles(){
-    c.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    var bubbles = c.bubbles;
-    for(var i =0; i<c.bubbles.length; i++){
-      bubbles[i].draw();
-    }
-    for(i=0; i<c.bubbles.length-1; i++){
-      for(var j=i+1; j<c.bubbles.length; j++){
-        if(distancebetween(bubbles[i], bubbles[j])<options.linedistance){
-          lineDraw(bubbles[i], bubbles[j], c);
-        }
-      }
-    }
-    window.requestAnimationFrame(animateBubbles);
-  }
-  //var anim = window.requestAnimationFrame(animateBubbles);
-}
-
-module.exports= animateHome;
+module.exports= CanvasClass;
+module.exports.lineDraw= lineDraw;

@@ -4,9 +4,17 @@ window.mobilecheck = function() {
   return check;
 }
 
-var can     = require('./js/canvashome.js'),
-    active  = 1,
-    created = 0;
+var can      = require('./js/canvashome.js'),
+    lineDraw = require('./js/canvashome').lineDraw,
+    c        = undefined,
+    anim     = null,
+    active   = 1,
+    created  = 0,
+    paused   = 1, 
+    views    = document.getElementsByClassName('view'),
+    navs     = document.getElementsByClassName('navelem');
+
+var distancebetween = (p1, p2) =>  (p1.x-p2.x)*(p1.x-p2.x)+ (p1.y-p2.y)*(p1.y-p2.y);
 
 var handleNavClick = (e) => {
   for(var i = 0; i< navs.length; i++) {
@@ -28,12 +36,9 @@ var moveUp=()=>{
     navs[active-1].classList.add('activenav');
     views[active-1].classList.add('activeview');
   }
-  if(active==1){
-    if(created===0)
-    {
-      createCanvas();
-      created= 1;
-    }
+  if(active==1 && !anim){
+    paused = 0;
+    anim = window.requestAnimationFrame(animateGraph);
   }
 }
 
@@ -44,12 +49,11 @@ var moveDown=()=>{
     active+=1;
     navs[active-1].classList.add('activenav');
     views[active-1].classList.add('activeview');
-    if(created==1) {
-      destroyCanvas();
-      created= 0;
-    }
+    paused= 1;
+    anim = null;
   }
-} 
+}
+
 var handleKeyDown = (e) =>{
   //up arrow
   if(e.keyCode==38){
@@ -61,21 +65,29 @@ var handleKeyDown = (e) =>{
   }
 }
 
-var 
-  views = document.getElementsByClassName('view'),
-  navs  = document.getElementsByClassName('navelem');
-
-var createCanvas = () =>{
-  if(anim==null){
-    anim  = window.requestAnimationFrame(canvasinst);
-  }
+var initCanvas = () =>{
+  var home = document.getElementById('view1');
+  var htmlcanvas= document.createElement('canvas');
+  htmlcanvas.classList.add('homecanvas');
+  htmlcanvas.id = "homecanvas";
+  home.insertBefore(htmlcanvas, home.childNodes[0]);
 }
 
-var destroyCanvas= () =>{
-  //var home = document.getElementById('view1');
-  //home.removeChild(document.getElementById('homecanvas'));
-  window.cancelAnimationFrame(anim);
-  anim = null;
+var animateGraph = () =>{
+  c.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  var bubbles = c.bubbles;
+  for(var i =0; i<c.bubbles.length; i++){
+    bubbles[i].draw();
+  }
+  for(i=0; i<c.bubbles.length-1; i++){
+    for(var j=i+1; j<c.bubbles.length; j++){
+      if(distancebetween(bubbles[i], bubbles[j])<60*60){
+        lineDraw(bubbles[i], bubbles[j], c);
+      }
+    }
+  }
+  if (paused === 0)
+    window.requestAnimationFrame(animateGraph);
 }
 
 //----If not on mobile do this----//
@@ -86,15 +98,18 @@ if(!window.mobilecheck()){
       navs[i].addEventListener('click', handleNavClick);
     }
   }
+  
   document.getElementById("workbox1").classList.add('activeworks');
-  //createCanvas();
-  var home = document.getElementById('view1');
-  var htmlcanvas= document.createElement('canvas');
-  htmlcanvas.classList.add('homecanvas');
-  htmlcanvas.id = "homecanvas";
-  home.insertBefore(htmlcanvas, home.childNodes[0]);
-  var anim       = null;
-  var canvasinst = can();
-  createCanvas();
-  created= 1;
+
+  /*---CANVAS STUFF----*/
+  initCanvas();
+  c = new can();
+  window.onresize= ()=> {
+    c.changewidth();
+    c.createBubble();
+  }
+  c.changewidth();
+  c.createBubble();
+  paused = 0;
+  anim = window.requestAnimationFrame(animateGraph);
 }
