@@ -4,10 +4,9 @@ window.mobilecheck = function() {
   return check;
 }
 
-var can = require('./js/canvashome.js');
-
-var active= 1,
-created = 0;
+var can     = require('./js/canvashome.js'),
+    active  = 1,
+    created = 0;
 
 var handleNavClick = (e) => {
   for(var i = 0; i< navs.length; i++) {
@@ -67,16 +66,16 @@ var
   navs  = document.getElementsByClassName('navelem');
 
 var createCanvas = () =>{
-  var home = document.getElementById('view1');
-  var htmlcanvas= document.createElement('canvas');
-  htmlcanvas.classList.add('homecanvas');
-  htmlcanvas.id = "homecanvas";
-  home.insertBefore(htmlcanvas, home.childNodes[0]);
-  can();
+  if(anim==null){
+    anim  = window.requestAnimationFrame(canvasinst);
+  }
 }
+
 var destroyCanvas= () =>{
-  var home = document.getElementById('view1');
-  home.removeChild(document.getElementById('homecanvas'));
+  //var home = document.getElementById('view1');
+  //home.removeChild(document.getElementById('homecanvas'));
+  window.cancelAnimationFrame(anim);
+  anim = null;
 }
 
 //----If not on mobile do this----//
@@ -88,13 +87,14 @@ if(!window.mobilecheck()){
     }
   }
   document.getElementById("workbox1").classList.add('activeworks');
-  /*var home = document.getElementById('view1');
+  //createCanvas();
+  var home = document.getElementById('view1');
   var htmlcanvas= document.createElement('canvas');
   htmlcanvas.classList.add('homecanvas');
   htmlcanvas.id = "homecanvas";
   home.insertBefore(htmlcanvas, home.childNodes[0]);
-  //initiate canvas
-  can();*/
+  var anim       = null;
+  var canvasinst = can();
   createCanvas();
   created= 1;
 }

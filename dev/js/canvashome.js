@@ -66,10 +66,16 @@ class Bubble{
 
 class CanvasClass{
   constructor(){
+    this.exists     = 1;
     this.canvashome = document.getElementById('homecanvas');
     this.ctx        = this.canvashome.getContext('2d');
-    this.bubbles    = [];
-    this.changewidth();
+    if(this.canvashome){
+      this.bubbles    = [];
+      this.changewidth();
+    }
+    else{
+      this.exists = 0;
+    }
   }
   changewidth (){
     this.canvashome.width= window.innerWidth;
@@ -98,7 +104,8 @@ var animateHome= () =>{
   }
   c.createBubble();
   c.changewidth();
-  function animateBubbles(){
+
+  return function animateBubbles(){
     c.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     var bubbles = c.bubbles;
     for(var i =0; i<c.bubbles.length; i++){
@@ -113,7 +120,7 @@ var animateHome= () =>{
     }
     window.requestAnimationFrame(animateBubbles);
   }
-  window.requestAnimationFrame(animateBubbles);
+  //var anim = window.requestAnimationFrame(animateBubbles);
 }
 
 module.exports= animateHome;
