@@ -18,7 +18,7 @@ gulp.task('serve', ['sass'], function() {
         server: "./"
     });
     gulp.watch("dev/*.scss", ['sass']);
-    gulp.watch("dev/*.js", ['uglify']);
+    gulp.watch("dev/**/*.js", ['uglify']);
     gulp.watch("dev/*.pug", ['pug']);
     gulp.watch("*.html").on('change', browserSync.reload);
 });

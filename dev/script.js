@@ -5,14 +5,14 @@ window.mobilecheck = function() {
 }
 
 //----Globals----
-//C        : object of CanvasClass from canvashome. Initlialized if and after
+//COBJ     : object of CanvasClass from canvashome. Initlialized if and after
 //           the canvas is inserted
 //ANIM     : Holds return type of window.requestAnimationFrame
 //PAUSED   : Control start and stop of animation with a boolean
 //LINEDIST : The minimum distance between two nodes to form a connection
 var can      = require('./js/canvashome'),
     lineDraw = require('./js/canvashome').lineDraw,
-    C        = undefined,
+    COBJ     = undefined,
     ANIM     = null,
     ACTIVE   = 1,
     PAUSED   = 1, 
@@ -48,7 +48,7 @@ var moveUp=()=>{
   }
   if(ACTIVE==1 && !ANIM){
     PAUSED = 0;
-    ANIM = window.requestAnimationFrame(animateGraph);
+    ANIM   = window.requestAnimationFrame(animateGraph);
   }
 }
 
@@ -59,11 +59,11 @@ var moveDown=()=>{
   if(!(ACTIVE==navs.length)){
     navs[ACTIVE-1].classList.remove('activenav');
     views[ACTIVE-1].classList.remove('activeview');
-    ACTIVE+=1;
+    ACTIVE += 1;
     navs[ACTIVE-1].classList.add('activenav');
     views[ACTIVE-1].classList.add('activeview');
-    PAUSED= 1;
-    ANIM = null;
+    PAUSED = 1;
+    ANIM   = null;
   }
 }
 
@@ -80,8 +80,10 @@ var handleKeyDown = (e) =>{
 
 //---Insert Canvas Element
 var initCanvas = () =>{
-  var home = document.getElementById('view1');
-  var htmlcanvas= document.createElement('canvas');
+  var 
+    home       = document.getElementById('view1'),
+    htmlcanvas = document.createElement('canvas');
+
   htmlcanvas.classList.add('homecanvas');
   htmlcanvas.id = "homecanvas";
   home.insertBefore(htmlcanvas, home.childNodes[0]);
@@ -89,19 +91,19 @@ var initCanvas = () =>{
 
 //----Animation logic----
 var animateGraph = () =>{
-  C.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  var bubbles = C.bubbles;
+  COBJ.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  var bubbles = COBJ.bubbles;
   //Draw the connecting nodes
-  for(var i =0; i<C.bubbles.length; i++){
+  for(var i =0; i<COBJ.bubbles.length; i++){
     bubbles[i].draw();
   }
 
   //Find if two nodes are close enough to form a connection
   //If so draw a line between them
-  for(i=0; i<C.bubbles.length-1; i++){
-    for(var j=i+1; j<C.bubbles.length; j++){
+  for(i=0; i<COBJ.bubbles.length-1; i++){
+    for(var j=i+1; j<COBJ.bubbles.length; j++){
       if(distancebetween(bubbles[i], bubbles[j])<LINEDIST){
-        lineDraw(bubbles[i], bubbles[j], C);
+        lineDraw(bubbles[i], bubbles[j], COBJ);
       }
     }
   }
@@ -124,7 +126,7 @@ if(!window.mobilecheck()){
 
   /*---CANVAS STUFF----*/
   initCanvas();
-  C = new can();
+  COBJ   = new can();
   PAUSED = 0;
-  ANIM = window.requestAnimationFrame(animateGraph);
+  ANIM   = window.requestAnimationFrame(animateGraph);
 }

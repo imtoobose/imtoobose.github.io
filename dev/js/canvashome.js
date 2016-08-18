@@ -7,7 +7,7 @@ var options = {
   "nodes": 100,
   "linedistance": 70*70,
   "color": "rgba(55, 162, 135, 0.15)",
-  "nodecolor": "rgba(0,0,0,0)"
+  "nodecolor": "rgba(90, 194, 168, 1)"
 }
 
 var lineDraw = (p1, p2, c) => {
@@ -16,12 +16,12 @@ var lineDraw = (p1, p2, c) => {
     x2= p2.x,
     y1= p1.y,
     y2= p2.y;
-    c.ctx.beginPath();
-    c.ctx.strokeStyle= options.color;
-    c.ctx.moveTo(x1, y1);
-    c.ctx.lineTo(x2, y2);
-    c.ctx.stroke();
-    c.ctx.closePath();
+  c.ctx.beginPath();
+  c.ctx.strokeStyle= options.color;
+  c.ctx.moveTo(x1, y1);
+  c.ctx.lineTo(x2, y2);
+  c.ctx.stroke();
+  c.ctx.closePath();
 }
 
 class Bubble{
@@ -85,7 +85,7 @@ class CanvasClass{
     if(!(options.nodes>0)) options.nodes= 200;
     this.bubbles=[];
     for(var i =0; i<options.nodes; i++){
-      var b = new Bubble(1,
+      var b = new Bubble(randomInt(1,3),
                   randomInt(0, this.canvashome.width), 
                   randomInt(0, this.canvashome.height), 
                   this.ctx);
