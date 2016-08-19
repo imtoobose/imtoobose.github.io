@@ -105,7 +105,6 @@ var stopAnimation = () =>{
 
 //----Animation logic----
 var animateGraph = () =>{
-  console.log('woo');
   COBJ.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   var bubbles = COBJ.bubbles;
 
