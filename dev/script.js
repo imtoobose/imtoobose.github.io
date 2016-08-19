@@ -37,8 +37,10 @@ var handleNavClick = (e) => {
   e.target.classList.add('activenav'); 
   var targ   = +e.target.id.slice(-1);
       ACTIVE = targ;
-
   views[targ-1].classList.add('activeview');
+
+  if(targ==1 && !ANIM) startAnimation();
+  else stopAnimation();
 }
 
 //----For moving up with the keyboard
@@ -51,8 +53,7 @@ var moveUp=()=>{
     views[ACTIVE-1].classList.add('activeview');
   }
   if(ACTIVE==1 && !ANIM){
-    PAUSED = 0;
-    ANIM   = window.requestAnimationFrame(animateGraph);
+    startAnimation();
   }
 }
 
@@ -66,8 +67,7 @@ var moveDown=()=>{
     ACTIVE += 1;
     navs[ACTIVE-1].classList.add('activenav');
     views[ACTIVE-1].classList.add('activeview');
-    PAUSED = 1;
-    ANIM   = null;
+    stopAnimation();
   }
 }
 
@@ -93,8 +93,19 @@ var initCanvas = () =>{
   home.insertBefore(htmlcanvas, home.childNodes[0]);
 }
 
+var startAnimation = () =>{
+  PAUSED = 0;
+  ANIM   = window.requestAnimationFrame(animateGraph);
+}
+
+var stopAnimation = () =>{
+  PAUSED = 1;
+  ANIM   = null;
+}
+
 //----Animation logic----
 var animateGraph = () =>{
+  console.log('woo');
   COBJ.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   var bubbles = COBJ.bubbles;
 
@@ -136,6 +147,5 @@ if(!window.mobilecheck()){
   /*---CANVAS STUFF----*/
   initCanvas();
   COBJ   = new can();
-  PAUSED = 0;
-  ANIM   = window.requestAnimationFrame(animateGraph);
+  startAnimation();
 }
