@@ -1,13 +1,7 @@
-//----Globals----
-//COBJ     : object of CanvasClass from canvashome. Initlialized if and after
-//           the canvas is inserted
-//ANIM     : Holds return type of window.requestAnimationFrame
-//PAUSED   : Control start and stop of animation with a boolean. 0= NO 1= YES
-//LINEDIST : The minimum distance between two nodes to form a connection
-//MOUSEPOS : X and Y coordinates of the mouse at any time
 window.mobilecheck = require('./js/mobilecheck');
 var 
-  ainterface = require('./js/canvashome'),
+  animation  = require('./js/canvashome'),
+  ANIM       = new animation('view1'),
   ACTIVE     = 1,
   views      = document.getElementsByClassName('view'),
   navs       = document.getElementsByClassName('navelem');
@@ -23,8 +17,12 @@ var handleNavClick = (e) => {
       ACTIVE = targ;
   views[targ-1].classList.add('activeview');
 
-  if(targ==1 && !anim.anim) anim.startAnimation();
-  else anim.stopAnimation();
+  if(targ==1 && ANIM.paused==1){
+    ANIM.startAnimation();
+  }
+  else{
+    ANIM.stopAnimation();
+  }
 }
 
 //----For moving up with the keyboard
@@ -36,8 +34,8 @@ var moveUp=()=>{
     navs[ACTIVE-1].classList.add('activenav');
     views[ACTIVE-1].classList.add('activeview');
   }
-  if(ACTIVE==1 && anim.paused==1){
-    anim.startAnimation();
+  if(ACTIVE==1 && ANIM.paused==1){
+    ANIM.startAnimation();
   }
 }
 
@@ -51,7 +49,7 @@ var moveDown=()=>{
     ACTIVE += 1;
     navs[ACTIVE-1].classList.add('activenav');
     views[ACTIVE-1].classList.add('activeview');
-    anim.stopAnimation();
+    ANIM.stopAnimation();
   }
 }
 
@@ -77,6 +75,5 @@ if(!window.mobilecheck()){
   }
 
   document.getElementById("workbox1").classList.add('activeworks');
-  var anim = new ainterface('view1');
-  anim.startAnimation();
+  ANIM.startAnimation();
 }
