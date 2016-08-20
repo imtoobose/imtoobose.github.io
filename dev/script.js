@@ -7,26 +7,10 @@
 //MOUSEPOS : X and Y coordinates of the mouse at any time
 window.mobilecheck = require('./js/mobilecheck');
 var 
-  can      = require('./js/canvashome'),
-  lineDraw = require('./js/canvashome').lineDraw,
-  COBJ     = undefined,
-  ANIM     = null,
-  ACTIVE   = 1,
-  PAUSED   = 1, 
-  LINEDIST = 70*70,
-  MOUSEPOS = {"x": -1, "y": -1},
-  views    = document.getElementsByClassName('view'),
-  navs     = document.getElementsByClassName('navelem');
-
-//----Update mouse position on mousemove
-var mousePos = (e) => {
-  MOUSEPOS.x= e.clientX;
-  MOUSEPOS.y= e.clientY;
-}
-
-//----Utility function to find the distance between
-//two points on a Cartesian grid
-var distancebetween = (p1, p2) =>  (p1.x-p2.x)*(p1.x-p2.x)+ (p1.y-p2.y)*(p1.y-p2.y);
+  ainterface = require('./js/canvashome'),
+  ACTIVE     = 1,
+  views      = document.getElementsByClassName('view'),
+  navs       = document.getElementsByClassName('navelem');
 
 //---For handling clicks on the Nav menu
 var handleNavClick = (e) => {
@@ -39,8 +23,8 @@ var handleNavClick = (e) => {
       ACTIVE = targ;
   views[targ-1].classList.add('activeview');
 
-  if(targ==1 && !ANIM) startAnimation();
-  else stopAnimation();
+  if(targ==1 && !anim.anim) anim.startAnimation();
+  else anim.stopAnimation();
 }
 
 //----For moving up with the keyboard
@@ -52,8 +36,8 @@ var moveUp=()=>{
     navs[ACTIVE-1].classList.add('activenav');
     views[ACTIVE-1].classList.add('activeview');
   }
-  if(ACTIVE==1 && !ANIM){
-    startAnimation();
+  if(ACTIVE==1 && anim.paused==1){
+    anim.startAnimation();
   }
 }
 
@@ -67,7 +51,7 @@ var moveDown=()=>{
     ACTIVE += 1;
     navs[ACTIVE-1].classList.add('activenav');
     views[ACTIVE-1].classList.add('activeview');
-    stopAnimation();
+    anim.stopAnimation();
   }
 }
 
@@ -82,53 +66,6 @@ var handleKeyDown = (e) =>{
   }
 }
 
-//---Insert Canvas Element
-var initCanvas = () =>{
-  var 
-    home       = document.getElementById('view1'),
-    htmlcanvas = document.createElement('canvas');
-
-  htmlcanvas.classList.add('homecanvas');
-  htmlcanvas.id = "homecanvas";
-  home.insertBefore(htmlcanvas, home.childNodes[0]);
-}
-
-var startAnimation = () =>{
-  PAUSED = 0;
-  ANIM   = window.requestAnimationFrame(animateGraph);
-}
-
-var stopAnimation = () =>{
-  PAUSED = 1;
-  ANIM   = null;
-}
-
-//----Animation logic----
-var animateGraph = () =>{
-  COBJ.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  var bubbles = COBJ.bubbles;
-
-  //Draw the connecting nodes
-  for(var i =0; i<COBJ.bubbles.length; i++){
-    bubbles[i].draw();
-  }
-
-  //Find if two nodes are close enough to form a connection
-  //If so draw a line between them
-  for(i=0; i<COBJ.bubbles.length-1; i++){
-    if(distancebetween(MOUSEPOS, bubbles[i])<200*200){
-      for(var j=i+1; j<COBJ.bubbles.length; j++){
-        if(distancebetween(bubbles[i], bubbles[j])<LINEDIST){
-          lineDraw(bubbles[i], bubbles[j], COBJ);
-        }
-      }
-    }
-  }
-
-  if (PAUSED === 0)
-    window.requestAnimationFrame(animateGraph);
-}
-
 //----If not on mobile do this----//
 if(!window.mobilecheck()){
   //Assign Navbar Listeners as well as keyboard ones
@@ -138,13 +75,8 @@ if(!window.mobilecheck()){
       navs[i].addEventListener('click', handleNavClick);
     }
   }
-  
-  window.addEventListener('mousemove', mousePos);
 
   document.getElementById("workbox1").classList.add('activeworks');
-
-  /*---CANVAS STUFF----*/
-  initCanvas();
-  COBJ   = new can();
-  startAnimation();
+  var anim = new ainterface('view1');
+  anim.startAnimation();
 }

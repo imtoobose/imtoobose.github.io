@@ -5,11 +5,13 @@ function randomInt(min,max)
 
 var options = {
   "nodes": 100,
-  "linedistance": 60*60,
+  "linedistance": 70*70,
+  "mousedistance": 200*200,
   "color": "rgba(55, 162, 135, 0.4)",
   "nodecolor": "rgba(90, 194, 168, 1)"
 }
 
+//draw line between two points
 var lineDraw = (p1, p2, c) => {
   var 
     x1= p1.x,
@@ -23,6 +25,9 @@ var lineDraw = (p1, p2, c) => {
   c.ctx.stroke();
   c.ctx.closePath();
 }
+
+//The bubble or nodes that are used to
+//join the lines
 
 class Bubble{
   constructor(radius, x, y, ctx){
@@ -65,8 +70,8 @@ class Bubble{
 }
 
 class CanvasClass{
-  constructor(){
-    this.canvashome = document.getElementById('homecanvas');
+  constructor(id){
+    this.canvashome = document.getElementById(id);
     this.ctx        = this.canvashome.getContext('2d');
     this.bubbles    = [];
     window.onresize = ()=> {
@@ -76,11 +81,15 @@ class CanvasClass{
     this.changewidth();
     this.createBubble();
   }
+
+  //If width is changed, resize the canvas and recreate nodes
   changewidth (){
     this.canvashome.width= window.innerWidth;
     this.canvashome.height= window.innerHeight;
     options.nodes= Math.floor(this.canvashome.height*this.canvashome.width/2100);
   }
+
+  //create the nodes with bubble class
   createBubble(){
     if(!(options.nodes>0)) options.nodes= 200;
     this.bubbles=[];
@@ -94,5 +103,82 @@ class CanvasClass{
   }
 }
 
-module.exports= CanvasClass;
-module.exports.lineDraw= lineDraw;
+//Interface to control and create animation
+
+class Interface{
+  constructor(id){
+    //paused: boolean value: 0 = not paused, 1= paused
+    //anim  : animation instance
+    //mousepos : position of mouse at any point
+    //cobj : instance of canvashome
+    this.paused = 1;
+    this.anim = null;
+    this.mousepos = {
+      "x":-1,
+      "y":-1
+    };
+
+    this.initCanvas(id);
+    this.cobj = new CanvasClass('homecanvas');
+
+    window.addEventListener('mousemove', this.getMousePos.bind(this));
+  }
+
+  //get position of mouse on screen
+  getMousePos(e){
+    this.mousepos.x= e.clientX;
+    this.mousepos.y= e.clientY;
+  }
+
+  //create a canvas element 
+  initCanvas(id){
+    var 
+      home       = document.getElementById(id),
+      htmlcanvas = document.createElement('canvas');
+    htmlcanvas.classList.add('homecanvas');
+    htmlcanvas.id = "homecanvas";
+    home.insertBefore(htmlcanvas, home.childNodes[0]);
+  }
+
+  //get absolute difference between two points
+  distancebetween(p1, p2){
+    return (p1.x-p2.x)*(p1.x-p2.x)+ (p1.y-p2.y)*(p1.y-p2.y);
+  }
+
+  startAnimation(){
+    this.paused= 0;
+    this.anim = window.requestAnimationFrame(this.animateGraph.bind(this));
+  }
+
+  stopAnimation(){
+    this.paused= 1;
+    this.anim = null;
+  }
+
+  //main animation
+  animateGraph(){
+    this.cobj.ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    var bubbles = this.cobj.bubbles;
+
+    //Draw the nodes
+    for(var i =0; i<this.cobj.bubbles.length; i++){
+      bubbles[i].draw();
+    }
+
+    //Find if two nodes are close enough to form a connection
+    //If so draw a line between them
+    for(i=0; i<this.cobj.bubbles.length-1; i++){
+      if(this.distancebetween(this.mousepos, bubbles[i])<options.mousedistance){
+        for(var j=i+1; j<this.cobj.bubbles.length; j++){
+          if(this.distancebetween(bubbles[i], bubbles[j])<options.linedistance){
+            lineDraw(bubbles[i], bubbles[j], this.cobj);
+          }
+        }
+      }
+    }
+    if (this.paused === 0)
+      window.requestAnimationFrame(this.animateGraph.bind(this));
+  }
+}
+
+module.exports= Interface;
