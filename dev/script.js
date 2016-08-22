@@ -1,7 +1,7 @@
 window.mobilecheck = require('./js/mobilecheck');
 var 
   animation  = require('./js/canvashome'),
-  ANIM       = new animation('view1'),
+  ANIM       = null,
   ACTIVE     = 1,
   views      = document.getElementsByClassName('view'),
   navs       = document.getElementsByClassName('navelem');
@@ -75,5 +75,6 @@ if(!window.mobilecheck()){
   }
 
   document.getElementById("workbox1").classList.add('activeworks');
+  ANIM = new animation('view1');
   ANIM.startAnimation();
 }

@@ -89,14 +89,32 @@ canvas{
 
 //----Works View----
 .workview{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   & .workcontainer{
-    display: inline-block;
+    overflow: hidden;
     list-style-type: none;
-    height: 80%;
+    height: auto;
     width: 70%;
-    background: white;
-    @include center;
-    margin: 0;
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    & .workbox {
+      display: none;
+    }
+    & .workbox-1{
+      position: relative;
+      left: 0;
+      border: solid black 2px;
+      display: block;
+      & .workimg{
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+      }
+    }
   }
 }
 
