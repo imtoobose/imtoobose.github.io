@@ -89,33 +89,20 @@ canvas{
 
 //----Works View----
 .workview{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
   overflow: hidden;
-  
-  & .workcontainer{
-    flex: 1 0 auto;
-    overflow: hidden;
-    list-style-type: none;
+  & .workposter{
+    position: absolute;
     height: 100%;
     width: 100%;
-    position: absolute;
+    display: block;
+  }
 
-    & .workbox {
-      display: inline-block;
-      position: absolute;
-      height:100%;
-      width: 100%;
-      overflow: hidden;
-      & .workimg{
-        //max-width: 100%;
-        //height: auto;
-        margin: 0 auto;
-        pointer-events: none;
-        //margin: 0;
-      }
-    }
+  & .coverimage{
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
   }
 }
 

@@ -13,7 +13,7 @@ html
     link(rel="stylesheet", type="text/css", href="dist/assets/devicons/css/devicons.min.css")
     link(rel="stylesheet", type="text/css", href="dist/style.css" )
     link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Roboto+Slab:400,700")
-  body
+  body(id="allofthis")
     div.view.activeview.homeview(id="view1")
       div.hometext
         div.titlename.
@@ -22,13 +22,11 @@ html
           Developer. Designer. Programmer.
     div.view.workview(id="view2")
       div.titletext.viewtitile WORK
-      ul.workcontainer
-        - var works= 1;
-        while works <= 5
-          li.workbox(class="workbox-"+works, id= "workbox"+works)
-            img.workimg(class="workimg-"+works, id="workimg"+works, src="#")
-            div.workdescription(class= "workdes-"+works ,id="workdes"+works)
-          - works+=1;
+      - var works= 1;
+      while works <= 5
+        div.workposter.coverimage(class="workposter"+works, id="workposter"+works)
+        - works+=1;
+
     div.view.toolsview(id="view3")
       div.titletext.tooltitle.
         TOOLS

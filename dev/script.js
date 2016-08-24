@@ -4,6 +4,9 @@ var
   worksscroll = require('./js/worksscroll'),
   ANIM       = null,
   ACTIVE     = 1,
+  ACTIVEWORK = 1,
+  started    = 0,
+  last       = 'down',
   views      = document.getElementsByClassName('view'),
   navs       = document.getElementsByClassName('navelem');
 
@@ -28,13 +31,23 @@ var handleNavClick = (e) => {
 
 //----For moving up with the keyboard
 var moveUp=()=>{
-  if(!(ACTIVE==1)) {
+  if(started==1 && ACTIVE==2 && ACTIVEWORK>=1){
+    console.log(ACTIVEWORK);
+    if(last=='down') {
+      ACTIVEWORK-=1;
+      last = 'up';
+    }
+    worksscroll.animateUp($imgs[ACTIVEWORK], $imgs[ACTIVEWORK-1], ()=>ACTIVEWORK-=1);
+  }
+
+  else if(!(ACTIVE==1)) {
     navs[ACTIVE-1].classList.remove('activenav');
     views[ACTIVE-1].classList.remove('activeview');
     ACTIVE-=1;
     navs[ACTIVE-1].classList.add('activenav');
     views[ACTIVE-1].classList.add('activeview');
   }
+
   if(ACTIVE==1 && ANIM.paused==1){
     ANIM.startAnimation();
   }
@@ -42,9 +55,20 @@ var moveUp=()=>{
 
 //----moving down with keyboard
 //----pause the animation so that there is minimal lag
+var $imgs = document.getElementsByClassName('workposter');
 
 var moveDown=()=>{
-  if(!(ACTIVE==navs.length)){
+
+  if(started==1 && ACTIVE==2 && ACTIVEWORK<5){
+    console.log(ACTIVEWORK);
+    if(last=='up') {
+      ACTIVEWORK +=1;
+      last = 'down';
+    }
+    worksscroll.animateDown($imgs[ACTIVEWORK-1], $imgs[ACTIVEWORK], ()=> ACTIVEWORK+=1);
+  }
+
+  else if(!(ACTIVE==navs.length)){
     navs[ACTIVE-1].classList.remove('activenav');
     views[ACTIVE-1].classList.remove('activeview');
     ACTIVE += 1;
@@ -75,48 +99,40 @@ if(!window.mobilecheck()){
     }
   }
 
-  document.getElementById("workbox1").classList.add('activeworks');
   ANIM = new animation('view1');
   ANIM.startAnimation();
-  //var TweenLite;
+  
   var woopop = (count) => {
     if (count==3){
+      started = 1;
       worksscroll();
     }
-  }
-
-  var loadimg = (index)=>{
-    console.log(index);
   }
 
   window.onload=  () =>{
     var 
       count = 0,
-      sc = document.createElement('script'),
-      uc = document.createElement('script'),
-      tc = document.createElement('script');
+      $scripts = [],
+      $body    = document.getElementById('allofthis'),
+      $links = ["https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js",
+                'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/plugins/CSSPlugin.min.js'];
 
-    sc.onload = () => woopop(++count);
-    //sc.src= 'dist/TweenLite.min.js';
-    sc.src= "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js";
-    document.body.appendChild(sc);
-    
-    tc.onload = () => woopop(++count);
-    //tc.src= 'dist/TimelineLite.min.js';
-    tc.src= 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js';
-    document.body.appendChild(tc);
+    for(var s= 0; s<$links.length; s++){
+      $scripts[s] = document.createElement('script');
+      $scripts[s].onload = () => woopop(++count);
+      $scripts[s].src = $links[s];
+      $body.appendChild($scripts[s]);
+    }
 
-    uc.onload = ()=> woopop(++count);
-    uc.src= 'dist/plugins/CSSPlugin.min.js';  
-    document.body.appendChild(uc);
+    var images = document.getElementsByClassName('workposter');
 
-    var images = document.getElementsByClassName('workimg');
     var imgsrcs= new Array();
     for(var i = 0; i<images.length; i++){
       imgsrcs[i] = new Image();
       imgsrcs[i].index = i;
       imgsrcs[i].onload = function(){
-        images[this.index].src = this.src;
+        images[this.index].style.background = 'url('+this.src+') no-repeat center center';
       }
       imgsrcs[i].src = "./dist/assets/Works/image0"+ (i+1) + ".png";
     }
