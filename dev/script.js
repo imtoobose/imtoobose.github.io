@@ -1,6 +1,7 @@
 window.mobilecheck = require('./js/mobilecheck');
 var 
   animation  = require('./js/canvashome'),
+  worksscroll = require('./js/worksscroll'),
   ANIM       = null,
   ACTIVE     = 1,
   views      = document.getElementsByClassName('view'),
@@ -77,4 +78,45 @@ if(!window.mobilecheck()){
   document.getElementById("workbox1").classList.add('activeworks');
   ANIM = new animation('view1');
   ANIM.startAnimation();
+  //var TweenLite;
+  var woopop = (count) => {
+    if (count==3){
+      worksscroll();
+    }
+  }
+
+  var loadimg = (index)=>{
+    console.log(index);
+  }
+
+  window.onload=  () =>{
+    var 
+      count = 0,
+      sc = document.createElement('script'),
+      uc = document.createElement('script'),
+      tc = document.createElement('script');
+
+    sc.onload = () => woopop(++count);
+    sc.src= 'dist/TweenLite.min.js';
+    document.body.appendChild(sc);
+    
+    tc.onload = () => woopop(++count);
+    tc.src= 'dist/TimelineLite.min.js';
+    document.body.appendChild(tc);
+
+    uc.onload = ()=> woopop(++count);
+    uc.src= 'dist/CSSPlugin.min.js';
+    document.body.appendChild(uc);
+
+    var images = document.getElementsByClassName('workimg');
+    var imgsrcs= new Array();
+    for(var i = 0; i<images.length; i++){
+      imgsrcs[i] = new Image();
+      imgsrcs[i].index = i;
+      imgsrcs[i].onload = function(){
+        images[this.index].src = this.src;
+      }
+      imgsrcs[i].src = "./dist/assets/Works/image0"+ (i+1) + ".png";
+    }
+  }
 }

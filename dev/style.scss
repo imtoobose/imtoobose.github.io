@@ -96,24 +96,32 @@ canvas{
   & .workcontainer{
     overflow: hidden;
     list-style-type: none;
-    height: auto;
+    height: 80%;
     width: 70%;
-    position: relative;
+    position: absolute;
     margin: 0 auto;
     padding: 0;
+
     & .workbox {
-      display: none;
-    }
-    & .workbox-1{
-      position: relative;
-      left: 0;
-      border: solid black 2px;
-      display: block;
+      display: inline-block;
+      position: absolute;
+      //top: -1000px;
+      overflow: hidden;
       & .workimg{
         max-width: 100%;
         height: auto;
         margin: 0 auto;
+        pointer-events: none;
       }
+    }
+
+    & .activeworks{
+      position: absolute;
+      //border: solid black 2px;
+      //display: inline-block;
+      top: 0;
+      height: 100%;
+      width: 100%;
     }
   }
 }
