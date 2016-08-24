@@ -1,36 +1,31 @@
-var t,
-$imgs;
 module.exports= () => {
-  t = new TimelineLite();
-  $imgs = document.getElementsByClassName('workbox');
+  var t = new TimelineLite();
+  var $imgs = document.getElementsByClassName('workbox');
   
   t
-  .set($imgs, {top: "200%"})
-  .set($imgs[0], {top:"0%"});
+  .set($imgs, {autoAlpha: 0})
+  .set($imgs[0], {autoAlpha: 1});
 
   var ACTIVE = 0;
 
   document.addEventListener('click', function(e){
-    console.log(e.target.id);
     if(/workbox/.test(e.target.id)){
-      console.log(ACTIVE);
-      animate(ACTIVE, () => {
-        ACTIVE+=1;
-        console.log('yay');
-      });
+      if(ACTIVE!= $imgs.length-1){
+        animate(ACTIVE, $imgs[ACTIVE], $imgs[ACTIVE+1] , () => ACTIVE+=1);
+      }
     }
   })
 }
 
-var animate = (active, callback) => {
-  console.log($imgs[active], $imgs[active+1]);
+var animate = (active, $out, $in, callback) => {
+  console.log(active, $out, $in);
+  var t= new TimelineLite();
+  t.set($in, {y: '100%', autoAlpha: 1});
 
   t
-  .set($imgs[active], {top:'0'})
-  .set($imgs[active+1], {top: '200%'})
-  .to($imgs[active], 0.5, {top: '-200%', ease:Power3.easeInOut}, 0)
-  .to($imgs[active+1], 0.5, {top: '-=200%', ease:Power3.easeInOut}, 0);
+  .to($out, 0.5, {y: '-100%'}, 0)
+  .to($in, 0.5, {y: '-=100%'}, 0);
   
-  console.log($imgs[active], $imgs[active+1]);
+  console.log($out, $in);
   callback();
 }

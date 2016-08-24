@@ -92,36 +92,29 @@ canvas{
   display: flex;
   justify-content: center;
   align-items: center;
-
+  overflow: hidden;
+  
   & .workcontainer{
+    flex: 1 0 auto;
     overflow: hidden;
     list-style-type: none;
-    height: 80%;
-    width: 70%;
+    height: 100%;
+    width: 100%;
     position: absolute;
-    margin: 0 auto;
-    padding: 0;
 
     & .workbox {
       display: inline-block;
       position: absolute;
-      //top: -1000px;
+      height:100%;
+      width: 100%;
       overflow: hidden;
       & .workimg{
-        max-width: 100%;
-        height: auto;
+        //max-width: 100%;
+        //height: auto;
         margin: 0 auto;
         pointer-events: none;
+        //margin: 0;
       }
-    }
-
-    & .activeworks{
-      position: absolute;
-      //border: solid black 2px;
-      //display: inline-block;
-      top: 0;
-      height: 100%;
-      width: 100%;
     }
   }
 }
@@ -236,6 +229,7 @@ canvas{
   position: absolute;
   right: 5px;
   text-align: right;
+  -webkit-transform-style: preserve-3d;
   & .navelem{
     cursor: pointer;
     margin-bottom: 5px;

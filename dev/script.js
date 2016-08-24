@@ -97,15 +97,17 @@ if(!window.mobilecheck()){
       tc = document.createElement('script');
 
     sc.onload = () => woopop(++count);
-    sc.src= 'dist/TweenLite.min.js';
+    //sc.src= 'dist/TweenLite.min.js';
+    sc.src= "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenLite.min.js";
     document.body.appendChild(sc);
     
     tc.onload = () => woopop(++count);
-    tc.src= 'dist/TimelineLite.min.js';
+    //tc.src= 'dist/TimelineLite.min.js';
+    tc.src= 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TimelineLite.min.js';
     document.body.appendChild(tc);
 
     uc.onload = ()=> woopop(++count);
-    uc.src= 'dist/CSSPlugin.min.js';
+    uc.src= 'dist/plugins/CSSPlugin.min.js';  
     document.body.appendChild(uc);
 
     var images = document.getElementsByClassName('workimg');
