@@ -16,7 +16,6 @@
 //----General Styles----
 
 $font: 'Lato', sans-serif;
-$serif: 'Robot-Slab', serif;
 $color1: #84DCC6;
 $color2: #FFA69E;
 $color3: #3D405B;
@@ -91,11 +90,46 @@ canvas{
 .workview{
   height: 100%;
   overflow: hidden;
+
   & .workposter{
+    z-index: 1;
     position: absolute;
     height: 100%;
     width: 100%;
     display: block;
+    & .workdescription{
+      color: $white;
+      font-family: $font;
+      font-size: 1.4em;
+      font-weight: 300;
+      z-index: 100;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      right: 10px;
+      & a{
+        padding: 0;
+        margin: 0;
+        float: left;
+      }
+    }
+  }
+
+  .ion-link{
+    font-size: 2em;
+  }
+  .worklink{
+    position: relative;
+    & i{
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    &:hover{
+      & i{
+        transform: scale(1.2);
+      }
+    }
   }
 
   & .coverimage{
@@ -104,10 +138,34 @@ canvas{
     -o-background-size: cover !important;
     background-size: cover !important;
   }
+
   $worksbackground: #28353b, #f2f1ed, #af6d69, #28353b, #3e3e43;
   @for $i from 1 through 5{
+    //$thiscolor: 
     .workposter-#{$i}{
       background: nth($worksbackground, $i);
+    }
+
+    .worklink#{$i}{
+      $incolor: white;
+      @if $i == 2{
+        $incolor:hsl(hue(nth($worksbackground, $i)), 50, 60);
+      }
+      @else {
+        $incolor:hsl(hue(nth($worksbackground, $i)), 50, 70);
+      }
+
+      color: $incolor;
+
+      &:link{
+        color: $incolor;
+      }
+      &:active{
+        color:$incolor;
+      }
+      &:hover{
+        color: fade-out($incolor, 0.3);
+      }
     }
   }
 }

@@ -1,25 +1,26 @@
 window.mobilecheck = require('./js/mobilecheck');
 var 
-  animation  = require('./js/canvashome'),
+  animation   = require('./js/canvashome'),
   worksscroll = require('./js/worksscroll'),
-  ANIM       = null,
-  ACTIVE     = 1,
-  ACTIVEWORK = 1,
-  started    = 0,
-  last       = 'down',
-  views      = document.getElementsByClassName('view'),
-  navs       = document.getElementsByClassName('navelem');
+  ANIM        = null,
+  ACTIVE      = 1,
+  ACTIVEWORK  = 1,
+  STARTED     = 0,
+  LAST        = 'down',
+  $imgs       = document.getElementsByClassName('workposter'),
+  $views      = document.getElementsByClassName('view'),
+  $navs       = document.getElementsByClassName('navelem');
 
 //---For handling clicks on the Nav menu
 var handleNavClick = (e) => {
-  for(var i = 0; i< navs.length; i++) {
-    navs[i].classList.remove('activenav');
-    views[i].classList.remove('activeview');
+  for(var i = 0; i< $navs.length; i++) {
+    $navs[i].classList.remove('activenav');
+    $views[i].classList.remove('activeview');
   }
   e.target.classList.add('activenav'); 
   var targ   = +e.target.id.slice(-1);
       ACTIVE = targ;
-  views[targ-1].classList.add('activeview');
+  $views[targ-1].classList.add('activeview');
 
   if(targ==1 && ANIM.paused==1){
     ANIM.startAnimation();
@@ -31,21 +32,20 @@ var handleNavClick = (e) => {
 
 //----For moving up with the keyboard
 var moveUp=()=>{
-  if(started==1 && ACTIVE==2 && ACTIVEWORK>=1){
-    console.log(ACTIVEWORK);
-    if(last=='down') {
+  if(STARTED==1 && ACTIVE==2 && ACTIVEWORK>=1){
+    if(LAST=='down') {
       ACTIVEWORK-=1;
-      last = 'up';
+      LAST = 'up';
     }
     worksscroll.animateUp($imgs[ACTIVEWORK], $imgs[ACTIVEWORK-1], ()=>ACTIVEWORK-=1);
   }
 
   else if(!(ACTIVE==1)) {
-    navs[ACTIVE-1].classList.remove('activenav');
-    views[ACTIVE-1].classList.remove('activeview');
+    $navs[ACTIVE-1].classList.remove('activenav');
+    $views[ACTIVE-1].classList.remove('activeview');
     ACTIVE-=1;
-    navs[ACTIVE-1].classList.add('activenav');
-    views[ACTIVE-1].classList.add('activeview');
+    $navs[ACTIVE-1].classList.add('activenav');
+    $views[ACTIVE-1].classList.add('activeview');
   }
 
   if(ACTIVE==1 && ANIM.paused==1){
@@ -55,25 +55,23 @@ var moveUp=()=>{
 
 //----moving down with keyboard
 //----pause the animation so that there is minimal lag
-var $imgs = document.getElementsByClassName('workposter');
 
 var moveDown=()=>{
 
-  if(started==1 && ACTIVE==2 && ACTIVEWORK<5){
-    console.log(ACTIVEWORK);
-    if(last=='up') {
+  if(STARTED==1 && ACTIVE==2 && ACTIVEWORK<5){
+    if(LAST=='up') {
       ACTIVEWORK +=1;
-      last = 'down';
+      LAST = 'down';
     }
     worksscroll.animateDown($imgs[ACTIVEWORK-1], $imgs[ACTIVEWORK], ()=> ACTIVEWORK+=1);
   }
 
-  else if(!(ACTIVE==navs.length)){
-    navs[ACTIVE-1].classList.remove('activenav');
-    views[ACTIVE-1].classList.remove('activeview');
+  else if(!(ACTIVE==$navs.length)){
+    $navs[ACTIVE-1].classList.remove('activenav');
+    $views[ACTIVE-1].classList.remove('activeview');
     ACTIVE += 1;
-    navs[ACTIVE-1].classList.add('activenav');
-    views[ACTIVE-1].classList.add('activeview');
+    $navs[ACTIVE-1].classList.add('activenav');
+    $views[ACTIVE-1].classList.add('activeview');
     ANIM.stopAnimation();
   }
 }
@@ -91,23 +89,24 @@ var handleKeyDown = (e) =>{
 
 //----If not on mobile do this----//
 if(!window.mobilecheck()){
+(function(){
   //Assign Navbar Listeners as well as keyboard ones
-  if(navs){
+  if($navs){
     window.addEventListener('keydown', handleKeyDown);
-    for(var i =0; i<navs.length; i++){
-      navs[i].addEventListener('click', handleNavClick);
+    for(var i =0; i<$navs.length; i++){
+      $navs[i].addEventListener('click', handleNavClick);
+    }
+  }
+
+  var woopop = (count) => {
+    if (count==3){
+      STARTED = 1;
+      worksscroll();
     }
   }
 
   ANIM = new animation('view1');
   ANIM.startAnimation();
-  
-  var woopop = (count) => {
-    if (count==3){
-      started = 1;
-      worksscroll();
-    }
-  }
 
   window.onload=  () =>{
     var 
@@ -137,4 +136,4 @@ if(!window.mobilecheck()){
       imgsrcs[i].src = "./dist/assets/Works/image0"+ (i+1) + ".png";
     }
   }
-}
+}())}

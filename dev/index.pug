@@ -11,8 +11,9 @@ html
     meta(name="viewport",  content="width=device-width, initial-scale=1")
     meta(name= "google-site-verification", content="GHZU06Azr4wUHph0RXiAuGFYsiOPHJ2PH6lExOFmIso")
     link(rel="stylesheet", type="text/css", href="dist/assets/devicons/css/devicons.min.css")
+    link(rel="stylesheet", type="text/css", href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
     link(rel="stylesheet", type="text/css", href="dist/style.css" )
-    link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Roboto+Slab:400,700")
+    link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900")
   body(id="allofthis")
     div.view.activeview.homeview(id="view1")
       div.hometext
@@ -22,9 +23,14 @@ html
           Developer. Designer. Programmer.
     div.view.workview(id="view2")
       div.titletext.viewtitile WORK
+      - var worknames = ["Conway's Game Of Life", "Random Shakespeare Poems", "Tic Tac Toe", "Weather App", "Simon Game"];
+      - var worklinks = ["https://imtoobose.github.io/conway-game", "https://randomshakespeare.surge.sh/", "https://imtoobose.github.io/Tic-Tac-Toe", "https://imtoobose.github.io/Weather", "https://imtoobose.github.io/Simon-Game"];
       - var works= 1;
       while works <= 5
         div.workposter.coverimage(class="workposter"+works, id="workposter"+works)
+          div.workdescription(class="workdescription"+works, id="workdescription"+works) 
+            a.worklink(id="worklink"+works, class="worklink"+works, href=worklinks[works-1], target="_blank")
+              i.ion.ion-link.linkicon
         - works+=1;
 
     div.view.toolsview(id="view3")
