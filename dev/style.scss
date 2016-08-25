@@ -141,16 +141,16 @@ canvas{
     background-size: cover !important;
   }
 
-  $worksbackground: #28353b, #f2f1ed, #af6d69, #28353b, #3e3e43;
+  $worksbackground: #15db92, #3d5e55, #af6d69, #28353b, #3e3e43;
   @for $i from 1 through 5{
-    .workposter-#{$i}{
+    .workposter#{$i}{
       background: nth($worksbackground, $i);
     }
 
     .worklink#{$i}{
       $incolor: white;
       @if $i == 2{
-        $incolor:hsl(hue(nth($worksbackground, $i)), 50, 60);
+        $incolor:hsl(hue(nth($worksbackground, $i)), 30, 30);
       }
       @else {
         $incolor:hsl(hue(nth($worksbackground, $i)), 50, 70);
