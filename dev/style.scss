@@ -88,8 +88,10 @@ canvas{
 
 //----Works View----
 .workview{
-  height: 100%;
   overflow: hidden;
+  & .workbox{
+    display: none;
+  }
 
   & .workposter{
     z-index: 1;
@@ -115,7 +117,7 @@ canvas{
     }
   }
 
-  .ion-link{
+  .linkicon{
     font-size: 2em;
   }
   .worklink{
@@ -141,7 +143,6 @@ canvas{
 
   $worksbackground: #28353b, #f2f1ed, #af6d69, #28353b, #3e3e43;
   @for $i from 1 through 5{
-    //$thiscolor: 
     .workposter-#{$i}{
       background: nth($worksbackground, $i);
     }
@@ -307,9 +308,9 @@ $j: 1;
 //----Mobile Layout----
 @mixin mobileview{
   body, html {
-    //overflow: auto;
     height:100%;
   }
+
   html{
     overflow-y: scroll;
     overflow-x: hidden; 
@@ -319,7 +320,6 @@ $j: 1;
   .view {
     display:block;
     position: relative;
-    //height: auto;
     min-height: 100%;
     transform: none;
     opacity: 1;
@@ -365,6 +365,69 @@ $j: 1;
     }
   }
 
+  .workview{
+    background:#2f2f2f !important;
+    min-height: 100%;
+    
+    & .titletext{
+      z-index: 100;
+    }
+    
+    & .workbox{
+      padding: 0;
+      margin: 0 auto;
+      padding-top: 15px;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      & .workcontain{
+        display: inline-block;
+        flex: 1 0 auto;
+        margin: 0 auto;
+        padding: 0;
+        position: relative;
+      }
+
+      & .workimg{
+        max-width: 100%;
+        height: auto;
+      }
+
+      & .workanchor{
+        position: absolute;
+        @include center;
+        z-index: 10;
+        height: 10vw;
+        width: 10vw;
+        background: white;
+        opacity: 0.6;
+        border-radius: 50%;
+        color: #2f2f2f;
+        &:link{
+          color: #2f2f2f;
+        }
+        &:active{
+          color: #2f2f2f;
+        }
+
+        &:hover{
+          transform: translate(-50%, -50%) scale(1.1);
+          opacity: 1;
+        }
+
+        & i {
+          @include center;
+          font-size: 2.4em;
+        }
+      }
+    }
+
+    & .workposter{
+      display: none;
+    }
+  }
+
   .toolsview{
     & .tooliconbox{
       padding:  0;
@@ -396,7 +459,6 @@ $j: 1;
 @media (max-width: 760px){
   @include mobileview;
 }
-
 
 //----Animations----
 @keyframes strike{

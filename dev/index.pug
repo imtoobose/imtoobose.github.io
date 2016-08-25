@@ -26,6 +26,15 @@ html
       - var worknames = ["Conway's Game Of Life", "Random Shakespeare Poems", "Tic Tac Toe", "Weather App", "Simon Game"];
       - var worklinks = ["https://imtoobose.github.io/conway-game", "https://randomshakespeare.surge.sh/", "https://imtoobose.github.io/Tic-Tac-Toe", "https://imtoobose.github.io/Weather", "https://imtoobose.github.io/Simon-Game"];
       - var works= 1;
+      div.workbox
+        while works<=5
+          div.workcontain
+            image.workimg(id="workimg"+works, class="workimg"+works)
+            a.workanchor(href=worklinks[works-1], class="workanchor"+works, id="workanchor"+works)
+              i.ion.ion-link
+          - works+=1;
+      - works = 1;
+
       while works <= 5
         div.workposter.coverimage(class="workposter"+works, id="workposter"+works)
           div.workdescription(class="workdescription"+works, id="workdescription"+works) 

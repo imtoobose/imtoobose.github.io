@@ -137,3 +137,19 @@ if(!window.mobilecheck()){
     }
   }
 }())}
+
+else{
+  (function(){
+    document.getElementById('allofthis').classList.add('mobileview');
+    var $imagesm = document.getElementsByClassName('workimg');
+    var imgsrcs = new Array();
+    for (var i=0;i<$imagesm.length; i++){
+      imgsrcs[i]= new Image();
+      imgsrcs[i].index = i;
+      imgsrcs[i].onload = function(){
+        $imagesm[this.index].src = this.src;
+      }
+      imgsrcs[i].src= './dist/assets/Works/image0'+(i+1)+'m.png';
+    }
+  }())
+}
