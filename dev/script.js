@@ -157,5 +157,4 @@ else{
 
 if (/MSIE 10|MSIE 9|rv:11.0|Edge\/\d./i.test(navigator.userAgent)) {
   document.getElementById('allofthis').style.overflow="hidden";
-   window.alert('isIE10');
 }
