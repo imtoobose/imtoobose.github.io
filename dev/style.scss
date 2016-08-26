@@ -29,6 +29,7 @@ html, body{
   -moz-osx-font-smoothing:grayscale;
   margin :0;
   padding: 0;
+  //overflow: hidden;
 }
 
 @mixin wordwrap {
@@ -93,43 +94,61 @@ canvas{
     display: none;
   }
 
+  & .loadingall{
+    @include center;
+    font-weight: 700;
+    font-size: 15vw;
+    height: 100%;
+    width: 100%;
+    background: $color2;
+    z-index: 10000;
+    & .loadingtext{
+      color: $white;
+      display: inline-block;
+      @include center;
+    }
+  }
+
   & .workposter{
     z-index: 1;
     position: absolute;
     height: 100%;
     width: 100%;
     display: block;
+    & .loading{
+      font-size: 15vw;
+      font-weight: 900;
+      @include center;
+      color: fade-out(#000, 0.7);
+    }
+
     & .workdescription{
+      @include center;
       color: $white;
       font-family: $font;
       font-size: 1.4em;
       font-weight: 300;
       z-index: 100;
-      border-radius: 50%;
-      position: absolute;
-      bottom: 0;
-      right: 10px;
-      & a{
-        padding: 0;
+
+      & .worklink{
+        position: relative;
+        border-radius: 50%;
+        height: 9vw;
+        width: 9vw;
         margin: 0;
         float: left;
-      }
-    }
-  }
+        color: $white;
+        transform-style: preserve-3d;
+        &:link, &:active{
+          color:$white;
+        }
 
-  .linkicon{
-    font-size: 2em;
-  }
-  .worklink{
-    position: relative;
-    & i{
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-    
-    &:hover{
-      & i{
-        transform: scale(1.2);
+        & .linkicon{
+          @include center;
+          font-size: 6vw;
+          pointer-events: none;
+          z-index: 1000;
+        }
       }
     }
   }
@@ -148,25 +167,7 @@ canvas{
     }
 
     .worklink#{$i}{
-      $incolor: white;
-      @if $i == 2{
-        $incolor:hsl(hue(nth($worksbackground, $i)), 30, 30);
-      }
-      @else {
-        $incolor:hsl(hue(nth($worksbackground, $i)), 50, 70);
-      }
-
-      color: $incolor;
-
-      &:link{
-        color: $incolor;
-      }
-      &:active{
-        color:$incolor;
-      }
-      &:hover{
-        color: fade-out($incolor, 0.3);
-      }
+      background: nth($worksbackground, $i);
     }
   }
 }
@@ -231,6 +232,7 @@ canvas{
     font-size: 3vw;
     font-weight: 700;
   }
+  
   & .socialtext{
     display: flex;
     flex: 1 0 auto;
@@ -458,6 +460,12 @@ $j: 1;
 
 @media (max-width: 760px){
   @include mobileview;
+}
+
+.mobileview{
+  & .loadingall{
+    display: none !important;
+  }
 }
 
 //----Animations----

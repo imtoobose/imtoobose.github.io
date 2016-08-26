@@ -86,7 +86,6 @@ var handleKeyDown = (e) =>{
     moveDown();
   }
 }
-
 //----If not on mobile do this----//
 if(!window.mobilecheck()){
 (function(){
@@ -101,6 +100,7 @@ if(!window.mobilecheck()){
   var woopop = (count) => {
     if (count==3){
       STARTED = 1;
+      document.getElementById('loadingall').style.display= "none";
       worksscroll();
     }
   }
@@ -131,6 +131,7 @@ if(!window.mobilecheck()){
       imgsrcs[i] = new Image();
       imgsrcs[i].index = i;
       imgsrcs[i].onload = function(){
+        images[this.index].children[0].style.display= "none";
         images[this.index].style.background = 'url('+this.src+') no-repeat center center';
       }
       imgsrcs[i].src = "./dist/assets/Works/image0"+ (i+1) + ".png";
@@ -152,4 +153,9 @@ else{
       imgsrcs[i].src= './dist/assets/Works/image0'+(i+1)+'m.png';
     }
   }())
+}
+
+if (/MSIE 10|MSIE 9|rv:11.0|Edge\/\d./i.test(navigator.userAgent)) {
+  document.getElementById('allofthis').style.overflow="hidden";
+   window.alert('isIE10');
 }

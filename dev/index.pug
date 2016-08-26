@@ -12,6 +12,7 @@ html
     meta(name= "google-site-verification", content="GHZU06Azr4wUHph0RXiAuGFYsiOPHJ2PH6lExOFmIso")
     link(rel="stylesheet", type="text/css", href="dist/assets/devicons/css/devicons.min.css")
     link(rel="stylesheet", type="text/css", href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
+    //link(rel="stylesheet", type="text/css", href="dist/assets/ionicons/css/ionicons.min.css")
     link(rel="stylesheet", type="text/css", href="dist/style.css" )
     link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900")
   body(id="allofthis")
@@ -34,9 +35,11 @@ html
               i.ion.ion-link
           - works+=1;
       - works = 1;
-
+      div.loadingall(id="loadingall")
+        div.loadingtext LOADING
       while works <= 5
         div.workposter.coverimage(class="workposter"+works, id="workposter"+works)
+          div.loading LOADING
           div.workdescription(class="workdescription"+works, id="workdescription"+works) 
             a.worklink(id="worklink"+works, class="worklink"+works, href=worklinks[works-1], target="_blank")
               i.ion.ion-link.linkicon
