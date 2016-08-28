@@ -13,8 +13,8 @@ module.exports= () => {
       var $icon = (e.target.children[0]);
       var t= new TimelineLite();
       t
-      .to($icon, 0.2, {color: backcolors[+e.target.id.slice(-1) - 1], autoAlpha: 0.6}, 0)
-      .to(e.target, 0.2, {scale:1.1, rotation:30, ease:Power3.easeIn}, 0);
+      .to($icon, 0.2, {color: backcolors[+e.target.id.slice(-1) - 1], autoAlpha: 1}, 0)
+      .to(e.target, 0.2, {scale:1.1, rotation:-45, ease:Power3.easeIn}, 0);
     }
   }
 

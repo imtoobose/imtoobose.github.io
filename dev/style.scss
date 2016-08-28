@@ -226,11 +226,13 @@ canvas{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
   & .text{
     color: $white;
     flex: 1 0 100%;
     font-size: 3vw;
     font-weight: 700;
+    text-align: center;
   }
   
   & .socialtext{
@@ -281,10 +283,13 @@ canvas{
   margin-right: 20px;
   list-style-type: none;
   position: absolute;
+  top: 25px;
   right: 5px;
   text-align: right;
   -webkit-transform-style: preserve-3d;
-  & .navelem{
+  & .navelem, & .subelem{
+    float: right;
+    clear: both;
     cursor: pointer;
     margin-bottom: 5px;
     transition: color 0.2s linear;
@@ -292,6 +297,48 @@ canvas{
       color:white;
     }
   }
+
+  & .subs{
+    display: inline-block;
+    float: right; 
+    clear: both;
+    overflow:hidden;
+    height: 0;
+  }
+
+  & .subelem{
+    position: relative;
+    height: 14px;
+    width: 30px;
+    margin: 0;
+
+    &:before{
+      position: absolute;
+      right: 0;
+      top: 5px;
+      height: 4px;
+      width: 15px;
+      background: fade-out(#000, 0.8);
+      content: '';
+      display: inline-block;
+      transition: all 0.2s linear;
+    }
+
+    &:hover{
+      &:before{
+        background : $white;
+        width: 30px;
+      }
+    }
+  }
+
+  & .activesub{
+    &:before{
+      background: $white;
+      width: 30px;
+    }
+  }
+
   & .activenav{
     color:white;
   }
@@ -458,7 +505,7 @@ $j: 1;
   }
 }
 
-@media (max-width: 760px){
+@media (max-width: 768px){
   @include mobileview;
 }
 

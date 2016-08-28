@@ -1,4 +1,3 @@
-window.mobilecheck = require('./js/mobilecheck');
 var 
   animation   = require('./js/canvashome'),
   worksscroll = require('./js/worksscroll'),
@@ -7,36 +6,84 @@ var
   ACTIVEWORK  = 1,
   STARTED     = 0,
   LAST        = 'down',
+  SUBSOPEN    = 0,
   $imgs       = document.getElementsByClassName('workposter'),
   $views      = document.getElementsByClassName('view'),
+  $subnavs    = document.getElementsByClassName('subelem'),
+  $subs       = document.getElementById('subs'),
   $navs       = document.getElementsByClassName('navelem');
 
 //---For handling clicks on the Nav menu
 var handleNavClick = (e) => {
-  for(var i = 0; i< $navs.length; i++) {
-    $navs[i].classList.remove('activenav');
-    $views[i].classList.remove('activeview');
-  }
-  e.target.classList.add('activenav'); 
-  var targ   = +e.target.id.slice(-1);
-      ACTIVE = targ;
-  $views[targ-1].classList.add('activeview');
+  if(/nav/gi.test(e.target.id)){
+    for(var i = 0; i< $navs.length; i++) {
+      $navs[i].classList.remove('activenav');
+      $views[i].classList.remove('activeview');
+    }
+    e.target.classList.add('activenav'); 
+    var targ   = +e.target.id.slice(-1);
+        ACTIVE = targ;
+    $views[targ-1].classList.add('activeview');
 
-  if(targ==1 && ANIM.paused==1){
-    ANIM.startAnimation();
+    if(targ==1 && ANIM.paused==1){
+      ANIM.startAnimation();
+    }
+    else{
+      ANIM.stopAnimation();
+    }
+
+    var t;
+    if(SUBSOPEN===0 && targ==2){
+      t= new TimelineLite();
+      t.to(subs, 0.3, {height: 70});
+      SUBSOPEN=1;
+    }
+
+    else if(SUBSOPEN==1 && targ!=2){
+      t = new TimelineLite();
+      t.to(subs, 0.3, {height: 0});
+      SUBSOPEN =0;
+    }
   }
-  else{
-    ANIM.stopAnimation();
-  }
+}
+
+var handleSubNavClick = (e) =>{
+  var targ = e.target.id.slice(-1);
+  $subnavs[ACTIVEWORK-1].classList.remove('activesub');
+  ACTIVEWORK= +targ;
+  $subnavs[ACTIVEWORK-1].classList.add('activesub');
 }
 
 //----For moving up with the keyboard
 var moveUp=()=>{
+  if(STARTED==1){
+    var t;
+    if(ACTIVE==3 && ACTIVEWORK==5){
+      t= new TimelineLite();
+      t.to($subs, 0.3, {height: 70});
+      $subnavs[4].classList.add('activesub');
+    }
+    if(ACTIVE==2 && ACTIVEWORK===0){
+      t = new TimelineLite();
+      t.to($subs, 0.3, {height: 0});
+    }
+  }
+
   if(STARTED==1 && ACTIVE==2 && ACTIVEWORK>=1){
     if(LAST=='down') {
       ACTIVEWORK-=1;
       LAST = 'up';
     }
+
+    try{
+      $subnavs[ACTIVEWORK].classList.remove('activesub');
+      $subnavs[ACTIVEWORK-1].classList.add('activesub');
+    }
+    catch(e){
+      $subnavs[$subnavs.length-1].classList.remove('activesub');
+      $subnavs[$subnavs.length-2].classList.add('activesub');
+    }
+
     worksscroll.animateUp($imgs[ACTIVEWORK], $imgs[ACTIVEWORK-1], ()=>ACTIVEWORK-=1);
   }
 
@@ -57,12 +104,34 @@ var moveUp=()=>{
 //----pause the animation so that there is minimal lag
 
 var moveDown=()=>{
+  if(STARTED==1){
+    var t;
+    if(ACTIVE==1){
+      t = new TimelineLite();
+      t.to($subs, 0.3, {height: 70});
+      $subnavs[0].classList.add('activesub');
+    }
+    else if(ACTIVE==2 && ACTIVEWORK==5){
+      t= new TimelineLite();
+      t.to($subs, 0.3, {height: 0});
+    }
+  }
 
   if(STARTED==1 && ACTIVE==2 && ACTIVEWORK<5){
     if(LAST=='up') {
       ACTIVEWORK +=1;
       LAST = 'down';
     }
+
+    try{
+      $subnavs[ACTIVEWORK-1].classList.remove('activesub');
+      $subnavs[ACTIVEWORK].classList.add('activesub');
+    }
+    catch(e){
+      $subnavs[0].classList.remove('activesub');
+      $subnavs[1].classList.add('activesub');
+    }
+
     worksscroll.animateDown($imgs[ACTIVEWORK-1], $imgs[ACTIVEWORK], ()=> ACTIVEWORK+=1);
   }
 
@@ -87,13 +156,16 @@ var handleKeyDown = (e) =>{
   }
 }
 //----If not on mobile do this----//
-if(!window.mobilecheck()){
+if(window.innerWidth>768){
 (function(){
   //Assign Navbar Listeners as well as keyboard ones
   if($navs){
     window.addEventListener('keydown', handleKeyDown);
     for(var i =0; i<$navs.length; i++){
       $navs[i].addEventListener('click', handleNavClick);
+    }
+    for(i =0; i<$subnavs.length; i++){
+      $subnavs[i].addEventListener('click', handleSubNavClick);
     }
   }
 
@@ -156,5 +228,11 @@ else{
 }
 
 if (/MSIE 10|MSIE 9|rv:11.0|Edge\/\d./i.test(navigator.userAgent)) {
-  document.getElementById('allofthis').style.overflow="hidden";
+  if(window.innerWidth>768){
+    document.getElementById('allofthis').style.overflow="hidden";
+    document.getElementById('emailname').style.width = "30vw";
+  }
+  else{
+    document.getElementById('emailname').style.width = "100%";
+  }  
 }
