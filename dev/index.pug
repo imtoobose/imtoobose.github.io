@@ -15,12 +15,15 @@ html(id="allhtml")
     link(rel="stylesheet", type="text/css", href="dist/assets/icons/css/fontello.css")
     link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900")
   body(id="allofthis")
+    //HOMEVIEW START
     div.view.activeview.homeview(id="view1")
       div.hometext
         div.titlename.
           Saumitra Bose
         div.titleprops.
           Developer. Designer. Programmer.
+    //HOMEVIEW END
+    //WORKVIEW START
     div.view.workview(id="view2")
       div.titletext.viewtitile WORK
       - var worknames = ["Conway's Game Of Life", "Random Shakespeare Poems", "Tic Tac Toe", "Weather App", "Simon Game"];
@@ -43,7 +46,8 @@ html(id="allhtml")
             a.worklink(id="worklink"+works, class="worklink"+works, href=worklinks[works-1], target="_blank")
               i.icon-link.linkicon
         - works+=1;
-
+    //WORKVIEW END
+    //TOOLSVIEW START
     div.view.toolsview(id="view3")
       div.titletext.tooltitle.
         TOOLS
@@ -64,6 +68,8 @@ html(id="allhtml")
               -   name= name.join('');
               -  }
               div.icondescription(id="desc-"+icon)= name
+    //TOOLSVIEW END
+    //CONTACT VIEW START
     div.view.contactview(id="view4")
       div.titletext.contacttitle.
         CONTACT
@@ -76,18 +82,21 @@ html(id="allhtml")
           div.socialtext 
             a.intext(href= socialnames[social][1], target="_blank") #{socialnames[social][0]}
           - social +=1;
-
-    ul.navs
-      li.navelem.activenav(id="nav1") Home
-      li.navelem(id="nav2") Portfolio
-      - var sub =1;
-      li.subs(id="subs")
-        while sub <= 5
-          if sub == 1
-            div.subelem.activesub(id="sub"+sub)
-          else
-            div.subelem(id="sub"+sub)
-          - sub+=1;
-      li.navelem(id="nav3") Tools
-      li.navelem(id="nav4") Contact 
+    //CONTACTVIEW END
+    //NAVS START
+    nav
+      ul.navs
+        li.navelem.activenav(id="nav1") Home
+        li.navelem(id="nav2") Portfolio
+        - var sub =1;
+        li.subs(id="subs")
+          while sub <= 5
+            if sub == 1
+              div.subelem.activesub(id="sub"+sub)
+            else
+              div.subelem(id="sub"+sub)
+            - sub+=1;
+        li.navelem(id="nav3") Tools
+        li.navelem(id="nav4") Contact
+    //NAVS END 
   script(src="dist/bundle.js")
