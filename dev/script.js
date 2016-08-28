@@ -1,3 +1,8 @@
+window.mobilecheck = require('./js/mobilecheck');
+if(window.mobilecheck){
+  document.write('<meta name="viewport" content="width=device-width, initial-scale=1"/>');
+}
+
 var 
   animation   = require('./js/canvashome'),
   worksscroll = require('./js/worksscroll'),
