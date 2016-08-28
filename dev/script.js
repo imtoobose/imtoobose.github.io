@@ -55,8 +55,13 @@ var handleNavClick = (e) => {
 var handleSubNavClick = (e) =>{
   var targ = e.target.id.slice(-1);
   $subnavs[ACTIVEWORK-1].classList.remove('activesub');
+  var last = ACTIVEWORK;
   ACTIVEWORK= +targ;
   $subnavs[ACTIVEWORK-1].classList.add('activesub');
+  if(last>ACTIVEWORK)
+    worksscroll.animateUp($imgs[last-1], $imgs[ACTIVEWORK-1]);
+  else if(last<ACTIVEWORK)
+    worksscroll.animateDown($imgs[last-1], $imgs[ACTIVEWORK-1]);
 }
 
 //----For moving up with the keyboard
