@@ -45,8 +45,8 @@ var animateUp = ($out, $in, callback) => {
   .to($in, 0.5, {y: '+=100%'}, 0)
   .to($outdesc, 0.3, {autoAlpha: 0}, 0.2)
   .to($indesc, 0.3, {autoAlpha: 1}, 0.2);
-  
-  callback();
+  if(callback)
+    callback();
 }
 
 var animateDown = ($out, $in, callback) => {
@@ -62,8 +62,8 @@ var animateDown = ($out, $in, callback) => {
   .to($in, 0.5, {y: '-=100%'}, 0)
   .to($outdesc, 0.3, {autoAlpha: 0}, 0)
   .to($indesc, 0.3, {autoAlpha: 1}, 0.2);
-  
-  callback();
+  if(callback)
+    callback();
 }
 
 module.exports.animateUp = animateUp;

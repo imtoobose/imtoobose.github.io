@@ -48,15 +48,24 @@ var handleNavClick = (e) => {
 }
 
 var handleSubNavClick = (e) =>{
-  var targ = e.target.id.slice(-1);
-  $subnavs[ACTIVEWORK-1].classList.remove('activesub');
-  var last = ACTIVEWORK;
-  ACTIVEWORK= +targ;
-  $subnavs[ACTIVEWORK-1].classList.add('activesub');
-  if(last>ACTIVEWORK)
-    worksscroll.animateUp($imgs[last-1], $imgs[ACTIVEWORK-1]);
-  else if(last<ACTIVEWORK)
-    worksscroll.animateDown($imgs[last-1], $imgs[ACTIVEWORK-1]);
+  if(STARTED==1){
+    LAST = 'click';
+    var targ = e.target.id.slice(-1);
+    for(var i=0; i<$subnavs.length; i++){
+      $subnavs[i].classList.remove('activesub');
+    }
+    var lastwork = ACTIVEWORK;
+    
+    if(lastwork===0) lastwork = 1;
+    if(lastwork>5) lastwork = 5;
+
+    ACTIVEWORK= +targ;
+    $subnavs[ACTIVEWORK-1].classList.add('activesub');
+    if(lastwork>ACTIVEWORK)
+      worksscroll.animateUp($imgs[lastwork-1], $imgs[ACTIVEWORK-1]);
+    else if(lastwork<ACTIVEWORK)
+      worksscroll.animateDown($imgs[lastwork-1], $imgs[ACTIVEWORK-1]);
+  }
 }
 
 //----For moving up with the keyboard
@@ -66,10 +75,13 @@ var moveUp=()=>{
     if(ACTIVE==3 && ACTIVEWORK==5){
       t= new TimelineLite();
       t.to($subs, 0.3, {height: 70});
+      SUBSOPEN = 1;
       $subnavs[4].classList.add('activesub');
     }
+
     if(ACTIVE==2 && ACTIVEWORK===0){
       t = new TimelineLite();
+      SUBSOPEN = 0;
       t.to($subs, 0.3, {height: 0});
     }
   }
@@ -77,8 +89,20 @@ var moveUp=()=>{
   if(STARTED==1 && ACTIVE==2 && ACTIVEWORK>=1){
     if(LAST=='down') {
       ACTIVEWORK-=1;
-      LAST = 'up';
     }
+
+    if(LAST=='click'){
+      if(ACTIVEWORK>1)
+        ACTIVEWORK-=1;
+      else{
+        ACTIVEWORK=0;
+        LAST='up';
+        moveUp();
+        return;
+      }
+    }
+
+    LAST = 'up';
 
     try{
       $subnavs[ACTIVEWORK].classList.remove('activesub');
@@ -113,11 +137,13 @@ var moveDown=()=>{
     var t;
     if(ACTIVE==1){
       t = new TimelineLite();
+      SUBSOPEN = 1;
       t.to($subs, 0.3, {height: 70});
       $subnavs[0].classList.add('activesub');
     }
     else if(ACTIVE==2 && ACTIVEWORK==5){
       t= new TimelineLite();
+      SUBSOPEN = 0;
       t.to($subs, 0.3, {height: 0});
     }
   }
@@ -125,8 +151,9 @@ var moveDown=()=>{
   if(STARTED==1 && ACTIVE==2 && ACTIVEWORK<5){
     if(LAST=='up') {
       ACTIVEWORK +=1;
-      LAST = 'down';
     }
+
+    LAST = 'down';
 
     try{
       $subnavs[ACTIVEWORK-1].classList.remove('activesub');
