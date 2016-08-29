@@ -22,6 +22,9 @@ html(id="allhtml")
           Saumitra Bose
         div.titleprops.
           Developer. Designer. Programmer.
+        div.scrollindicator(id="scrollindicator")
+          div.wheel
+
     //HOMEVIEW END
     //WORKVIEW START
     div.view.workview(id="view2")
@@ -98,5 +101,12 @@ html(id="allhtml")
             - sub+=1;
         li.navelem(id="nav3") Tools
         li.navelem(id="nav4") Contact
-    //NAVS END 
+    //NAVS END
+    //SCROLL BUTTONS START
+    div.scrollbuts
+      button.goup.scrollbutt(id="goup")
+        i.icon-up-open.scrollicon.scrolliconup
+      button.godown.scrollbutt(id="godown")
+        i.icon-down-open.scrollicon.scrollicondown
+    //SCROLL BUTTONS END
   script(src="dist/bundle.js")

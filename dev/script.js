@@ -61,7 +61,6 @@ var handleSubNavClick = (e) =>{
     } 
 
     lastwork = ACTIVEWORK;
-    console.log(lastwork, ACTIVEWORK, LAST);
 
     if(lastwork===0) lastwork = 1;
     if(lastwork>5) lastwork = 5;
@@ -203,6 +202,12 @@ var handleKeyDown = (e) =>{
     moveDown();
   }
 }
+
+//----Event Listeners unaffected by mobile views
+document.getElementById('goup').addEventListener('click', moveUp);
+document.getElementById('godown').addEventListener('click', moveDown);
+document.getElementById('scrollindicator').addEventListener('click', moveDown);
+
 //----If not on mobile do this----//
 if(window.innerWidth>768){
 (function(){
