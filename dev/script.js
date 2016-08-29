@@ -48,23 +48,32 @@ var handleNavClick = (e) => {
 }
 
 var handleSubNavClick = (e) =>{
+
   if(STARTED==1){
-    LAST = 'click';
+    var lastwork;
     var targ = e.target.id.slice(-1);
     for(var i=0; i<$subnavs.length; i++){
       $subnavs[i].classList.remove('activesub');
     }
-    var lastwork = ACTIVEWORK;
-    
+
+    if(LAST=='up'){
+      ACTIVEWORK+=1;
+    } 
+
+    lastwork = ACTIVEWORK;
+    console.log(lastwork, ACTIVEWORK, LAST);
+
     if(lastwork===0) lastwork = 1;
     if(lastwork>5) lastwork = 5;
 
     ACTIVEWORK= +targ;
     $subnavs[ACTIVEWORK-1].classList.add('activesub');
+
     if(lastwork>ACTIVEWORK)
       worksscroll.animateUp($imgs[lastwork-1], $imgs[ACTIVEWORK-1]);
     else if(lastwork<ACTIVEWORK)
       worksscroll.animateDown($imgs[lastwork-1], $imgs[ACTIVEWORK-1]);
+    LAST = 'click';
   }
 }
 
@@ -72,11 +81,12 @@ var handleSubNavClick = (e) =>{
 var moveUp=()=>{
   if(STARTED==1){
     var t;
-    if(ACTIVE==3 && ACTIVEWORK==5){
+    if(ACTIVE==3 && SUBSOPEN==0){
       t= new TimelineLite();
       t.to($subs, 0.3, {height: 70});
       SUBSOPEN = 1;
-      $subnavs[4].classList.add('activesub');
+      if(ACTIVEWORK==5)
+        $subnavs[4].classList.add('activesub');
     }
 
     if(ACTIVE==2 && ACTIVEWORK===0){
@@ -92,8 +102,10 @@ var moveUp=()=>{
     }
 
     if(LAST=='click'){
-      if(ACTIVEWORK>1)
+      if(ACTIVEWORK>1) {
         ACTIVEWORK-=1;
+      }
+
       else{
         ACTIVEWORK=0;
         LAST='up';
@@ -135,12 +147,16 @@ var moveUp=()=>{
 var moveDown=()=>{
   if(STARTED==1){
     var t;
-    if(ACTIVE==1){
+
+    if(ACTIVE==1 && SUBSOPEN===0){
       t = new TimelineLite();
       SUBSOPEN = 1;
-      t.to($subs, 0.3, {height: 70});
-      $subnavs[0].classList.add('activesub');
+      t
+      .to($subs, 0.3, {height: 70}, 0);
+      if(ACTIVEWORK==1)
+        $subnavs[0].classList.add('activesub');
     }
+
     else if(ACTIVE==2 && ACTIVEWORK==5){
       t= new TimelineLite();
       SUBSOPEN = 0;
