@@ -47,6 +47,16 @@ html, body{
   transform: translate(-50%, -50%);
 }
 
+@mixin hide{
+  visibility: 0;
+  opacity: 0;
+}
+
+@mixin show{
+  visibility: 1;
+  opacity: 1;
+}
+
 canvas{
   @include center;
 }
@@ -301,7 +311,7 @@ canvas{
 
 //----Navbar---
 .navs{
-  color: fade-out(#000, 0.7);
+  
   font-size: 1.2em;
   font-family: $font;
   font-weight: 700;
@@ -313,7 +323,9 @@ canvas{
   right: 5px;
   text-align: right;
   -webkit-transform-style: preserve-3d;
+
   & .navelem, & .subelem{
+    color: fade-out(#000, 0.7);
     clear: both;
     cursor: pointer;
     float: right;
@@ -321,6 +333,10 @@ canvas{
     transition: color 0.2s linear;
     &:hover{
       color:white;
+    }
+    &:focus{
+      outline: none !important;
+      color: $white;
     }
   }
 
@@ -372,13 +388,12 @@ canvas{
 }
 
 .scrollbuts{
+  @include hide;
   bottom: 30px;
   display: inline-block;
-  opacity: 0;
   position: absolute;
   pointer-events: none;
   right: 30px;
-  visibility: 0;
 
   & .scrollbutt{
     background: none;
@@ -577,16 +592,14 @@ $j: 1;
 @media (max-width: 1021px){
   .homeview{
     & .scrollindicator{
-      opacity: 0;
+      @include hide;
       pointer-events: none;
-      visibility: 0;
     }
   }
 
   .scrollbuts{
-    opacity: 1;
+    @include show;
     pointer-events: auto;
-    visibility: 1;
     & *{
       visibility: inherit;
     }
@@ -596,8 +609,7 @@ $j: 1;
 @media (max-width: 768px){
   @include mobileview;
   .scrollbuts{
-    opacity: 0;
-    visibility: 0;
+    @include hide;
   }
 }
 

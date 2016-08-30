@@ -89,8 +89,8 @@ html(id="allhtml")
     //NAVS START
     nav
       ul.navs
-        li.navelem.activenav(id="nav1") Home
-        li.navelem(id="nav2") Portfolio
+        li.navelem.activenav(id="nav1", tabindex="1") Home
+        li.navelem(id="nav2", tabindex="2") Portfolio
         - var sub =1;
         li.subs(id="subs")
           while sub <= 5
@@ -99,8 +99,8 @@ html(id="allhtml")
             else
               div.subelem(id="sub"+sub)
             - sub+=1;
-        li.navelem(id="nav3") Tools
-        li.navelem(id="nav4") Contact
+        li.navelem(id="nav3", tabindex="3") Tools
+        li.navelem(id="nav4", tabindex="4") Contact
     //NAVS END
     //SCROLL BUTTONS START
     div.scrollbuts

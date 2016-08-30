@@ -15,11 +15,14 @@ var
 
 //---For handling clicks on the Nav menu
 var handleNavClick = (e) => {
+  var t;  
   if(/nav/gi.test(e.target.id)){
+
     for(var i = 0; i< $navs.length; i++) {
       $navs[i].classList.remove('activenav');
       $views[i].classList.remove('activeview');
     }
+
     e.target.classList.add('activenav'); 
     var targ   = +e.target.id.slice(-1);
         ACTIVE = targ;
@@ -32,14 +35,13 @@ var handleNavClick = (e) => {
       ANIM.stopAnimation();
     }
 
-    var t;
-    if(SUBSOPEN===0 && targ==2){
+    if(STARTED==1 && SUBSOPEN===0 && targ==2){
       t= new TimelineLite();
       t.to(subs, 0.3, {height: 70});
       SUBSOPEN=1;
     }
 
-    else if(SUBSOPEN==1 && targ!=2){
+    else if(STARTED==1 && SUBSOPEN==1 && targ!=2){
       t = new TimelineLite();
       t.to(subs, 0.3, {height: 0});
       SUBSOPEN =0;
@@ -47,15 +49,18 @@ var handleNavClick = (e) => {
   }
 }
 
+//Handle clicks of work sub navs
 var handleSubNavClick = (e) =>{
-
   if(STARTED==1){
-    var lastwork;
-    var targ = e.target.id.slice(-1);
+    var 
+      lastwork,
+      targ      = e.target.id.slice(-1);
+
     for(var i=0; i<$subnavs.length; i++){
       $subnavs[i].classList.remove('activesub');
     }
 
+    //Handle moving up messing up activework
     if(LAST=='up'){
       ACTIVEWORK+=1;
     } 
@@ -78,6 +83,8 @@ var handleSubNavClick = (e) =>{
 
 //----For moving up with the keyboard
 var moveUp=()=>{
+  //Open and close subnavs when moving into
+  //and out of Works view
   if(STARTED==1){
     var t;
     if(ACTIVE==3 && SUBSOPEN==0){
@@ -95,6 +102,7 @@ var moveUp=()=>{
     }
   }
 
+  //Change active subnavs
   if(STARTED==1 && ACTIVE==2 && ACTIVEWORK>=1){
     if(LAST=='down') {
       ACTIVEWORK-=1;
@@ -127,6 +135,7 @@ var moveUp=()=>{
     worksscroll.animateUp($imgs[ACTIVEWORK], $imgs[ACTIVEWORK-1], ()=>ACTIVEWORK-=1);
   }
 
+  //Change active view
   else if(!(ACTIVE==1)) {
     $navs[ACTIVE-1].classList.remove('activenav');
     $views[ACTIVE-1].classList.remove('activeview');
@@ -135,6 +144,7 @@ var moveUp=()=>{
     $views[ACTIVE-1].classList.add('activeview');
   }
 
+  //Start home page animation if view is 1
   if(ACTIVE==1 && ANIM.paused==1){
     ANIM.startAnimation();
   }
@@ -144,9 +154,11 @@ var moveUp=()=>{
 //----pause the animation so that there is minimal lag
 
 var moveDown=()=>{
+  //Open Subnavs when going from tab before
+  //works to works, and close when scrolled
+  //through all of works
   if(STARTED==1){
     var t;
-
     if(ACTIVE==1 && SUBSOPEN===0){
       t = new TimelineLite();
       SUBSOPEN = 1;
@@ -163,6 +175,7 @@ var moveDown=()=>{
     }
   }
 
+  //Change active subnav
   if(STARTED==1 && ACTIVE==2 && ACTIVEWORK<5){
     if(LAST=='up') {
       ACTIVEWORK +=1;
@@ -182,6 +195,8 @@ var moveDown=()=>{
     worksscroll.animateDown($imgs[ACTIVEWORK-1], $imgs[ACTIVEWORK], ()=> ACTIVEWORK+=1);
   }
 
+  //Change active view
+  //Pause if view is not the first one
   else if(!(ACTIVE==$navs.length)){
     $navs[ACTIVE-1].classList.remove('activenav');
     $views[ACTIVE-1].classList.remove('activeview');
@@ -192,12 +207,13 @@ var moveDown=()=>{
   }
 }
 
-var handleKeyDown = (e) =>{
-  //up arrow
+//----Universal handler for key up event
+var handleKeyUp = (e) =>{
+  //up arrow key
   if(e.keyCode==38){
     moveUp();
   }
-  //down arrow
+  //down arrow key
   else if(e.keyCode==40){
     moveDown();
   }
@@ -213,16 +229,18 @@ if(window.innerWidth>768){
 (function(){
   //Assign Navbar Listeners as well as keyboard ones
   if($navs){
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
     for(var i =0; i<$navs.length; i++){
       $navs[i].addEventListener('click', handleNavClick);
+      $navs[i].addEventListener('focus', (e)=> {handleNavClick(e); e.target.blur();});
     }
+
     for(i =0; i<$subnavs.length; i++){
       $subnavs[i].addEventListener('click', handleSubNavClick);
     }
   }
 
-  var woopop = (count) => {
+  var startScroll = (count) => {
     if (count==3){
       STARTED = 1;
       document.getElementById('loadingall').style.display= "none";
@@ -244,7 +262,7 @@ if(window.innerWidth>768){
 
     for(var s= 0; s<$links.length; s++){
       $scripts[s] = document.createElement('script');
-      $scripts[s].onload = () => woopop(++count);
+      $scripts[s].onload = () => startScroll(++count);
       $scripts[s].src = $links[s];
       $body.appendChild($scripts[s]);
     }
