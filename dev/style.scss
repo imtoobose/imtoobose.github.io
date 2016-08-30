@@ -95,7 +95,7 @@ canvas{
       font-size: 2vw;
     }
 
-    & .scrollindicator{
+    /*& .scrollindicator{
       border: solid $white 3px;
       border-radius: 15px;
       cursor: pointer;
@@ -117,7 +117,7 @@ canvas{
         transform: translate(-50%);
         width: 10px;
       }
-    }
+    }*/
   }
 }
 
@@ -388,11 +388,11 @@ canvas{
 }
 
 .scrollbuts{
-  @include hide;
+  @include show;
   bottom: 30px;
   display: inline-block;
   position: absolute;
-  pointer-events: none;
+  pointer-events: auto;
   right: 30px;
 
   & .scrollbutt{
@@ -597,19 +597,20 @@ $j: 1;
     }
   }
 
-  .scrollbuts{
+  /*.scrollbuts{
     @include show;
     pointer-events: auto;
     & *{
       visibility: inherit;
     }
-  }
+  }*/
 }
 
 @media (max-width: 768px){
   @include mobileview;
   .scrollbuts{
     @include hide;
+    pointer-events: none;
   }
 }
 

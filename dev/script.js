@@ -7,6 +7,7 @@ var
   STARTED     = 0,
   LAST        = 'down',
   SUBSOPEN    = 0,
+  SCTHRESHOLD = 1000,
   $imgs       = document.getElementsByClassName('workposter'),
   $views      = document.getElementsByClassName('view'),
   $subnavs    = document.getElementsByClassName('subelem'),
