@@ -6,7 +6,7 @@ module.exports= () => {
   .set($imgs[0], {autoAlpha: 1});
 
   var workre= /worklink/g;
-  var backcolors = ["white", "#10A56F", "#5C8E81", "#C97C78", "#48606B", "#616168"];
+  var backcolors = ["#D44633", "#10A56F", "#5C8E81", "#C97C78", "#48606B", "#616168"];
 
   var handleMouseOver = (e) =>{
     if(workre.test(e.target.id)){
