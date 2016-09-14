@@ -196,8 +196,8 @@ canvas{
     background-size: cover !important;
   }
 
-  $worksbackground: #15db92, #3d5e55, #af6d69, #28353b, #3e3e43;
-  @for $i from 1 through 5{
+  $worksbackground: #ed6a58, #15db92, #3d5e55, #af6d69, #28353b, #3e3e43;
+  @for $i from 1 through 6{
     .workposter#{$i}{
       background: nth($worksbackground, $i);
     }

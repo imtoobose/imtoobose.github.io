@@ -38,7 +38,7 @@ var handleNavClick = (e) => {
 
     if(STARTED==1 && SUBSOPEN===0 && targ==2){
       t= new TimelineLite();
-      t.to(subs, 0.3, {height: 70});
+      t.to(subs, 0.3, {height: 84});
       SUBSOPEN=1;
     }
 
@@ -69,7 +69,7 @@ var handleSubNavClick = (e) =>{
     lastwork = ACTIVEWORK;
 
     if(lastwork===0) lastwork = 1;
-    if(lastwork>5) lastwork = 5;
+    if(lastwork>6) lastwork = 6;
 
     ACTIVEWORK= +targ;
     $subnavs[ACTIVEWORK-1].classList.add('activesub');
@@ -90,10 +90,10 @@ var moveUp=()=>{
     var t;
     if(ACTIVE==3 && SUBSOPEN==0){
       t= new TimelineLite();
-      t.to($subs, 0.3, {height: 70});
+      t.to($subs, 0.3, {height: 84});
       SUBSOPEN = 1;
-      if(ACTIVEWORK==5)
-        $subnavs[4].classList.add('activesub');
+      if(ACTIVEWORK==6)
+        $subnavs[5].classList.add('activesub');
     }
 
     if(ACTIVE==2 && ACTIVEWORK===0){
@@ -164,12 +164,12 @@ var moveDown=()=>{
       t = new TimelineLite();
       SUBSOPEN = 1;
       t
-      .to($subs, 0.3, {height: 70}, 0);
+      .to($subs, 0.3, {height: 84}, 0);
       if(ACTIVEWORK==1)
         $subnavs[0].classList.add('activesub');
     }
 
-    else if(ACTIVE==2 && ACTIVEWORK==5){
+    else if(ACTIVE==2 && ACTIVEWORK==6){
       t= new TimelineLite();
       SUBSOPEN = 0;
       t.to($subs, 0.3, {height: 0});
@@ -177,7 +177,7 @@ var moveDown=()=>{
   }
 
   //Change active subnav
-  if(STARTED==1 && ACTIVE==2 && ACTIVEWORK<5){
+  if(STARTED==1 && ACTIVE==2 && ACTIVEWORK<6){
     if(LAST=='up') {
       ACTIVEWORK +=1;
     }

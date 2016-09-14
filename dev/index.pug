@@ -29,11 +29,11 @@ html(id="allhtml")
     //WORKVIEW START
     div.view.workview(id="view2")
       div.titletext.viewtitile WORK
-      - var worknames = ["Conway's Game Of Life", "Random Shakespeare Poems", "Tic Tac Toe", "Weather App", "Simon Game"];
-      - var worklinks = ["https://imtoobose.github.io/conway-game", "https://randomshakespeare.surge.sh/", "https://imtoobose.github.io/Tic-Tac-Toe", "https://imtoobose.github.io/Weather", "https://imtoobose.github.io/Simon-Game"];
+      - var worknames = ["Voting App", "Conway's Game Of Life", "Random Shakespeare Poems", "Tic Tac Toe", "Weather App", "Simon Game"];
+      - var worklinks = ["https://sky-spur.hyperdev.space", "https://imtoobose.github.io/conway-game", "https://randomshakespeare.surge.sh/", "https://imtoobose.github.io/Tic-Tac-Toe", "https://imtoobose.github.io/Weather", "https://imtoobose.github.io/Simon-Game"];
       - var works= 1;
       div.workbox
-        while works<=5
+        while works<= 6
           div.workcontain
             image.workimg(id="workimg"+works, class="workimg"+works)
             a.workanchor(href=worklinks[works-1], class="workanchor"+works, id="workanchor"+works)
@@ -42,7 +42,7 @@ html(id="allhtml")
       - works = 1;
       div.loadingall(id="loadingall")
         div.loadingtext LOADING
-      while works <= 5
+      while works <= 6
         div.workposter.coverimage(class="workposter"+works, id="workposter"+works)
           div.loading LOADING
           div.workdescription(class="workdescription"+works, id="workdescription"+works) 
@@ -93,7 +93,7 @@ html(id="allhtml")
         li.navelem(id="nav2", tabindex="2") Portfolio
         - var sub =1;
         li.subs(id="subs")
-          while sub <= 5
+          while sub <= 6
             if sub == 1
               div.subelem.activesub(id="sub"+sub)
             else
