@@ -29,10 +29,11 @@ var handleNavClick = (e) => {
         ACTIVE = targ;
     $views[targ-1].classList.add('activeview');
 
+    console.log(ANIM.paused, targ);
     if(targ==1 && ANIM.paused==1){
       ANIM.startAnimation();
     }
-    else{
+    else if(targ!==1 && ANIM.paused!==1){
       ANIM.stopAnimation();
     }
 
